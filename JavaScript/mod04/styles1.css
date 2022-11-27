@@ -1,0 +1,119 @@
+.container {
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    width: 100%;
+    margin-bottom: 2rem;
+    border: 2px solid black;
+    background-color: #a5bd9c;
+    text-align: center;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+img {
+    width: 90%;
+    display: block;
+    border: 2px black solid;
+    border-radius: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 1rem;
+    color: #000000;
+}
+
+header h1 {
+    width: 100%;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #000000;
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+form input[type="text"] {
+    background-image: url("images/search_icon.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    padding: .4rem .4rem .4rem 2rem;
+    font-size: 1rem;
+}
+
+input {
+    display: block;
+    margin: 0 auto 1rem auto;
+}
+
+article {
+    border: 2px black solid;
+    width: 32%;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    box-sizing: border-box;
+    background-color: #a5bd9c;
+}
+
+figure {
+    text-align: center;
+    overflow: hidden;
+}
+
+dialog {
+    width: 80%;
+    height: 80%;
+}
+
+span {
+    font-size: 2rem;
+    float: right;
+}
+
+iframe {
+    width: 100%;
+    height: 90%;
+}
+
+@media screen and (min-width: 769px) {
+    .container {
+        width: 80%;
+    }
+
+    main {
+        width: 100%;
+    }
+
+    article {
+        width: 32%;
+    }
+
+}
+
+
+
