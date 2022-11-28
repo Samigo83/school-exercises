@@ -113,22 +113,27 @@ class Game:
             self.goals.append(goal)
         return
 '''
-testplayer = {'name ':'Pulivari', 'location':'EFHK'}
-transport = 'Airplane'
-airport = ['EU', 'FI', 'Helsinki-Vantaa', 'EFHK', (60.3172, 24.963301)]
-continent = 'EU'
-airport_type = 'heliport'
+
 
 class Game:
 
-    def __init__(self, airport, transport, player):
-        self.airport = airport
+    def __init__(self, player_name, transport, location, continent):
+        self.player_name = player_name
         self.transport = transport
-        self.player = player
+        self.location = location
+        self.continent = continent
+        self.airport = Airport(location)
         self.score = 0
         self.co2_budget = 10000
         self.distance = [0, 0]
         self.travel_time = [0, 0]
+
+    def set_location(self):
+        self.airport.airport_by_ident()
+
+    def search_for_airports(self):
+        self.airport.airport_by_continent_and_transport(self.continent, self.transport)
+
 
 
 

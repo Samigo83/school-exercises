@@ -70,16 +70,22 @@ class Airport:
 
 class Airport:
 
-    def __init__(self, ident, active=False, data):
+    def __init__(self, ident, active=False):
         self.ident = ident
-        self.name = data[0]
-        self.latitude = data[1]
-        self.longitude =
+        self.active = active
 
-    def search_for_airport(self):
-        sql = f"SELECT airport.name, airport.ident, airport.type FROM airport, country " \
+    def airport_by_continent_and_transport(self, continent, transport):
+        sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude, airport.longitude FROM airport, country " \
               f"WHERE country.iso_country = airport.iso_country " \
-              f"and airport.continent = '{continent}' and airport.type in ({airport_type})"
+              f"and airport.continent = '{continent}' and airport.type in ({transport})"
+        query_cursor = connection.cursor()
+        query_cursor.execute(sql)
+        result = query_cursor.fetchall()
+        return result
+    def airport_by_ident(self):
+        sql = f"SELECT airport.name, airport.ident, airport.latitude, airport.longitude FROM airport, country " \
+              f"WHERE country.iso_country = airport.iso_country " \
+              f"and airport.ident = '{self.ident}')"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
