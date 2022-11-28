@@ -1,17 +1,15 @@
-# Game parameters
-max_distance = 200
-max_lat_dist = max_distance/50
-max_lon_dist = max_distance/50
+from dotenv import load_dotenv
+import mysql.connector
+import os
 
-co2_initial = 0
-co2_budget = 1000
-co2_per_flight = 50
-co2_per_km = 1
+load_dotenv()
 
-
-default_starting_point = "EFKE"
-default_name = "Anna"
-
-# Internal shared variables -- do not modify
-conn = None
+connection = mysql.connector.connect(
+    host=os.environ.get('HOST'),
+    port=3306,
+    database = os.environ.get('DB_NAME'),
+    user = os.environ.get('DB_USER'),
+    password = os.environ.get('DB_PASS'),
+    autocommit = True
+    )
 

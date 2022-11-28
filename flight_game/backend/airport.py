@@ -2,8 +2,9 @@ import random
 import config
 from weather import Weather
 from geopy import distance
+from config import connection
 
-
+'''
 class Airport:
     # lisätty data, jottei tartte jokaista lentokenttää hakea erikseen
     def __init__(self, ident, active=False, data=None):
@@ -35,10 +36,7 @@ class Airport:
         # self.distanceTo(1, 2)
         lista = []
         # haetaan kaikki tiedot kerralla
-        sql = "SELECT ident, name, latitude_deg, longitude_deg FROM Airport WHERE latitude_deg BETWEEN "
-        sql += str(self.latitude - config.max_lat_dist) + " AND " + str(self.latitude + config.max_lat_dist)
-        sql += " AND longitude_deg BETWEEN "
-        sql += str(self.longitude - config.max_lon_dist) + " AND " + str(self.longitude + config.max_lon_dist)
+        sql = "SELECT ident, name, latitude_deg, longitude_deg FROM Airport"
         print(sql)
         cur = config.conn.cursor()
         cur.execute(sql)
@@ -50,9 +48,8 @@ class Airport:
                 data = {'name': r[1], 'latitude': r[2], 'longitude': r[3]}
                 nearby_apt = Airport(r[0], False, data)
                 nearby_apt.distance = self.distanceTo(nearby_apt)
-                if nearby_apt.distance <= config.max_distance:
-                    lista.append(nearby_apt)
-                    nearby_apt.co2_consumption = self.co2_consumption(nearby_apt.distance)
+                lista.append(nearby_apt)
+                nearby_apt.co2_consumption = self.co2_consumption(nearby_apt.distance)
         return lista
 
     def fetchWeather(self, game):
@@ -69,3 +66,21 @@ class Airport:
     def co2_consumption(self, km):
         consumption = config.co2_per_flight + km * config.co2_per_km
         return consumption
+'''
+
+class Airport:
+
+    def __init__(self, ident, active=False, data):
+        self.ident = ident
+        self.name = data[0]
+        self.latitude = data[1]
+        self.longitude =
+
+    def search_for_airport(self):
+        sql = f"SELECT airport.name, airport.ident, airport.type FROM airport, country " \
+              f"WHERE country.iso_country = airport.iso_country " \
+              f"and airport.continent = '{continent}' and airport.type in ({airport_type})"
+        query_cursor = connection.cursor()
+        query_cursor.execute(sql)
+        result = query_cursor.fetchall()
+        return result

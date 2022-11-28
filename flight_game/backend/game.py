@@ -3,6 +3,7 @@ from airport import Airport
 from goal import Goal
 import config
 
+'''
 class Game:
 
     def __init__(self, id, loc, consumption, player=None):
@@ -111,3 +112,24 @@ class Game:
             goal = Goal(a[0], a[1], a[2], a[3], is_reached, a[5], a[6], a[7], a[8])
             self.goals.append(goal)
         return
+'''
+testplayer = {'name ':'Pulivari', 'location':'EFHK'}
+transport = 'Airplane'
+airport = ['EU', 'FI', 'Helsinki-Vantaa', 'EFHK', (60.3172, 24.963301)]
+continent = 'EU'
+airport_type = 'heliport'
+
+class Game:
+
+    def __init__(self, airport, transport, player):
+        self.airport = airport
+        self.transport = transport
+        self.player = player
+        self.score = 0
+        self.co2_budget = 10000
+        self.distance = [0, 0]
+        self.travel_time = [0, 0]
+
+
+
+
