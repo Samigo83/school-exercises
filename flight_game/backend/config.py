@@ -7,9 +7,10 @@ load_dotenv()
 connection = mysql.connector.connect(
     host=os.environ.get('HOST'),
     port=3306,
-    database = os.environ.get('DB_NAME'),
-    user = os.environ.get('DB_USER'),
-    password = os.environ.get('DB_PASS'),
-    autocommit = True
+    database=os.environ.get('DB_NAME'),
+    user=os.environ.get('DB_USER'),
+    password=os.environ.get('DB_PASS'),
+    autocommit=True,
+    buffered=True
     )
 

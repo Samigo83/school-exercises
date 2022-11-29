@@ -1,6 +1,7 @@
 import string, random
 from airport import Airport
 from goal import Goal
+from transport import Transport
 import config
 
 '''
@@ -122,11 +123,14 @@ class Game:
         self.transport = transport
         self.location = location
         self.continent = continent
-        self.airport = Airport(location)
+        self.transport = Transport(transport)
+        self.airport = Airport(location, transport)
         self.score = 0
         self.co2_budget = 10000
         self.distance = [0, 0]
         self.travel_time = [0, 0]
+        self.data = {}
+
 
     def set_location(self):
         self.airport.airport_by_ident()

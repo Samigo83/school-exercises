@@ -3,6 +3,7 @@ import config
 from weather import Weather
 from geopy import distance
 from config import connection
+from transport import Transport
 
 '''
 class Airport:
@@ -70,23 +71,50 @@ class Airport:
 
 class Airport:
 
-    def __init__(self, ident, active=False):
+    def __init__(self, ident, transport, active=False, data=None):
         self.ident = ident
         self.active = active
+        self.transport = transport
 
-    def airport_by_continent_and_transport(self, continent, transport):
-        sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude, airport.longitude FROM airport, country " \
+        if data is None:
+            sql = f"SELECT airport.name, airport.ident, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
+                   f"WHERE country.iso_country = airport.iso_country " \
+                   f"and airport.ident = '{ident}'"
+            query_cursor = connection.cursor()
+            query_cursor.execute(sql)
+            result = query_cursor.fetchall()
+            for i in result:
+                self.name = i[0]
+                self.latitude = i[2]
+                self.longitude = i[3]
+        else:
+            self.name = data['name']
+            self.latitude = float(data['latitude'])
+            self.longitude = float(data['longitude'])
+
+    def airport_by_continent_and_transport(self, continent):
+        sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
               f"WHERE country.iso_country = airport.iso_country " \
-              f"and airport.continent = '{continent}' and airport.type in ({transport})"
+              f"and airport.continent = '{continent}' and airport.type in {self.transport.airports_to_land}"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
-        return result
-    def airport_by_ident(self):
-        sql = f"SELECT airport.name, airport.ident, airport.latitude, airport.longitude FROM airport, country " \
-              f"WHERE country.iso_country = airport.iso_country " \
-              f"and airport.ident = '{self.ident}')"
-        query_cursor = connection.cursor()
-        query_cursor.execute(sql)
-        result = query_cursor.fetchall()
-        return result
+        airport_list = []
+        for airport in result:
+            data = {'name': airport[0], 'latitude': airport[3], 'longitude': airport[4]}
+            nearby_apt = Airport(airport[1], False, data)
+            nearby_apt.distance = self.distance_to(nearby_apt)
+            airport_list.append(nearby_apt)
+        return airport_list
+
+    def distance_to(self, target):
+        coords_1 = (self.latitude, self.longitude)
+        coords_2 = (target.latitude, target.longitude)
+        dist = distance.distance(coords_1, coords_2).km
+        return int(dist)
+
+tr = Transport('AIRPLANE')
+a = Airport('EFHK', tr)
+lista = a.airport_by_continent_and_transport('EU')
+for info in lista:
+    print(info.name, info.ident, info.latitude, info.longitude, info.active, info.transport)

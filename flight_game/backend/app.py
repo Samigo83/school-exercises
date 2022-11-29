@@ -2,6 +2,7 @@ import json
 
 from flask import Flask, request
 from flask_cors import CORS
+from game import Game
 
 import config
 
@@ -33,6 +34,8 @@ def game():
     loc = args.get("loc")
     transport = args.get('transport')
     continent = args.get('continent')
+    Game(player, transport.upper(), loc.upper(), continent.upper())
+
     json_data = {'playername': player, 'location': loc, 'transport': transport, 'continent': continent}
     return json_data
 
