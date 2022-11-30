@@ -24,7 +24,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
   evt.preventDefault();
   const playerName = document.querySelector('#player-input').value;
   document.querySelector('#player-modal').classList.add('hide');
-  gameSetup(`${apiurl}newgame?player=${playerName}&loc=${startLoc}`);
+  gameSetup(`${apiurl}game?player=${playerName}&loc=EFHK&continent=EU&transport=airplane`);
 })
 
 // function to fetch data from API
@@ -38,8 +38,9 @@ async function getData(url) {
 // function to update game status
 function updateStatus(status) {
   document.querySelector('#player-name').innerHTML = `Player: ${status.name}`;
-  document.querySelector('#consumed').innerHTML = status.co2.consumed;
-  document.querySelector('#budget').innerHTML = status.co2.budget;
+  document.querySelector('#score').innerHTML = status.score;
+  document.querySelector('#budget').innerHTML = status.co2_budget;
+  // Should we add here more data about player's current status? Like distance? Time?
 }
 
 // function to show weather at selected airport
@@ -102,42 +103,47 @@ async function gameSetup(url) {
     airportMarkers.clearLayers();
     const gameData = await getData(url);
     console.log(gameData);
-    updateStatus(gameData.status);
 
-    for (let airport of gameData.location) {
+    updateStatus(gameData.player_status)
+
+    const playerLocation = L.marker([gameData.location.latitude, gameData.location.longitude]).addTo(map);
+    airportMarkers.addLayer(playerLocation);
+    map.flyTo([gameData.location.latitude, gameData.location.longitude], 10);
+    playerLocation.bindPopup(`You are here: <b>${gameData.location.name}</b>`);
+    playerLocation.setIcon(greenIcon);
+    playerLocation.openPopup();
+
+    for (let airport of gameData.airports) {
       const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
-      airportMarkers.addLayer(marker);
-      if (airport.active) {
-        map.flyTo([airport.latitude, airport.longitude], 10);
-        showWeather(airport);
-        checkGoals(airport.weather.meets_goals);
-        if(!checkGameOver(gameData.status.co2.budget)) return;
-        marker.bindPopup(`You are here: <b>${airport.name}</b>`);
-        marker.setIcon(greenIcon);
-        marker.openPopup();
-      }
-      else {
-        marker.setIcon(blueIcon);
-        const popupContent = document.createElement("div");
-        const h4 = document.createElement('h4');
-        h4.innerHTML = airport.name;
-        popupContent.append(h4);
-        const goButton = document.createElement("button");
-        goButton.classList.add('button');
-        goButton.innerHTML = 'Fly here';
-        popupContent.append(goButton);
-        const p = document.createElement("p");
-        p.innerHTML = `Distance ${airport.distance}km`;
-        popupContent.append(p);
-        marker.bindPopup(popupContent);
-        goButton.addEventListener('click', function () {
-          gameSetup(`${apiurl}flyto?game=${gameData.status.id}&dest=${airport.ident}&consumption=${airport.co2_consumption}`);
-        })
-      }
+      airportMarkers.addLayer(marker)
+
+      // Function for weather call here!
+      // Check for goals here!
+      // Check if game is over here!
+
+      marker.setIcon(blueIcon);
+      const popupContent = document.createElement("div");
+      const h4 = document.createElement('h4');
+      h4.innerHTML = airport.name;
+      popupContent.append(h4);
+      const goButton = document.createElement("button");
+      goButton.classList.add('button');
+      goButton.innerHTML = 'Fly here';
+      popupContent.append(goButton);
+      const p = document.createElement("p");
+      p.innerHTML = `Distance ${airport.distance}km`;
+      popupContent.append(p);
+      marker.bindPopup(popupContent);
+      goButton.addEventListener('click', function () {
+        gameSetup(`${apiurl}game?loc=${airport.ident}&continent=EU&transport=airplane`);
+      });
     }
-    updateGoals(gameData.goals);
-  } catch (error) {
-    console.log(error)
+  }
+  // Update Goals here!
+  catch
+    (error)
+    {
+      console.log(error);
   }
 }
 
@@ -145,3 +151,5 @@ async function gameSetup(url) {
 document.querySelector('.goal').addEventListener('click', function(evt) {
   evt.currentTarget.classList.add('hide');
 });
+
+// event listeners for continent and transport

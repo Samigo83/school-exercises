@@ -1,10 +1,6 @@
-import random
-import config
-from weather import Weather
 from geopy import distance
 from config import connection
-from transport import Transport
-import json
+import random
 
 '''
 class Airport:
@@ -57,7 +53,7 @@ class Airport:
     def fetchWeather(self, game):
         self.weather = Weather(self, game)
         return
-
+    
     def distanceTo(self, target):
 
         coords_1 = (self.latitude, self.longitude)
@@ -70,6 +66,7 @@ class Airport:
         return consumption
 '''
 
+
 class Airport:
 
     def __init__(self, ident, transport, continent, active=True):
@@ -79,10 +76,9 @@ class Airport:
         self.continent = continent
         self.distance = 0
 
-
         sql = f"SELECT airport.name, airport.ident, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
-               f"WHERE country.iso_country = airport.iso_country " \
-               f"and airport.ident = '{ident}'"
+              f"WHERE country.iso_country = airport.iso_country " \
+              f"and airport.ident = '{ident}'"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
@@ -100,11 +96,13 @@ class Airport:
         result = query_cursor.fetchall()
         airport_list = []
         for airport in result:
-            distance = self.distance_to(airport[3], airport[4])
-            data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
-                    'longitude': airport[4], 'distance': distance, 'active': False}
-            airport_list.append(data)
-        return airport_list
+            if airport[1] != self.ident:
+                distance = self.distance_to(airport[3], airport[4])
+                data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
+                        'longitude': airport[4], 'distance': distance, 'weather': ' Here call weather for this airport',
+                        'active': False}
+                airport_list.append(data)
+        return random.choices(airport_list, k=20)
 
     def distance_to(self, x, y):
         coords_1 = (self.latitude, self.longitude)
@@ -112,8 +110,4 @@ class Airport:
         dist = distance.distance(coords_1, coords_2).km
         return int(dist)
 
-tr = Transport('AIRPLANE')
-a = Airport('EFHK', tr, 'EU')
-lista = a.airport_by_continent_and_transport()
-listax = json.dumps(lista, default=lambda o: o.__dict__, indent=4)
-print(listax)
+    # Weather function

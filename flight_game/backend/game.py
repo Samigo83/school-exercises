@@ -2,7 +2,6 @@ import string, random
 from airport import Airport
 from goal import Goal
 from transport import Transport
-import config
 
 '''
 class Game:
@@ -124,7 +123,7 @@ class Game:
         self.location = location
         self.continent = continent
         self.transport = Transport(transport)
-        self.airport = Airport(location, transport, continent)
+        self.airport = Airport(location, self.transport, continent)
         self.score = 0
         self.co2_budget = 10000
         self.distance = [0, 0]
@@ -135,10 +134,14 @@ class Game:
                 'score': self.score,
                 'co2_budget': self.co2_budget,
                 'location': self.location,
-                'traveltime': self.travel_time,
+                'travel_time': self.travel_time,
                 'distance': self.distance,
-            }, 'airports': {self.airport.airport_by_continent_and_transport()
-                            }
+            }, 'location': {
+                  'ident': self.airport.ident,
+                  'name': self.airport.name,
+                  'latitude': self.airport.latitude,
+                  'longitude': self.airport.longitude,
+                  'active': self.airport.active,
+            }, 'airports': self.airport.airport_by_continent_and_transport()
         }
 
-Game('Sami', 'airplane', 'efhk', 'eu')

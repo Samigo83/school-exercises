@@ -4,3 +4,8 @@ Flask~=2.0.3
 python-dotenv~=0.19.2
 geopy~=2.2.0
 Flask-CORS~=3.0.10
+
+// Replace all values with your own in .env file
+// Install python package -> dotenv
+// sql.connector is defined in config.py -> to use -> from config import connection
+// in every .py file you use SQL.
