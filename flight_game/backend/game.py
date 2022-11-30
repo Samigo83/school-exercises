@@ -124,21 +124,21 @@ class Game:
         self.location = location
         self.continent = continent
         self.transport = Transport(transport)
-        self.airport = Airport(location, transport)
+        self.airport = Airport(location, transport, continent)
         self.score = 0
         self.co2_budget = 10000
         self.distance = [0, 0]
         self.travel_time = [0, 0]
-        self.data = {}
+        self.data = {
+            'player_status': {
+                'name': self.player_name,
+                'score': self.score,
+                'co2_budget': self.co2_budget,
+                'location': self.location,
+                'traveltime': self.travel_time,
+                'distance': self.distance,
+            }, 'airports': {self.airport.airport_by_continent_and_transport()
+                            }
+        }
 
-
-    def set_location(self):
-        self.airport.airport_by_ident()
-
-    def search_for_airports(self):
-        self.airport.airport_by_continent_and_transport(self.continent, self.transport)
-
-
-
-
-
+Game('Sami', 'airplane', 'efhk', 'eu')
