@@ -4,6 +4,7 @@ from weather import Weather
 from geopy import distance
 from config import connection
 from transport import Transport
+import json
 
 '''
 class Airport:
@@ -71,50 +72,48 @@ class Airport:
 
 class Airport:
 
-    def __init__(self, ident, transport, active=False, data=None):
+    def __init__(self, ident, transport, continent, active=True):
         self.ident = ident
         self.active = active
         self.transport = transport
+        self.continent = continent
+        self.distance = 0
 
-        if data is None:
-            sql = f"SELECT airport.name, airport.ident, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
-                   f"WHERE country.iso_country = airport.iso_country " \
-                   f"and airport.ident = '{ident}'"
-            query_cursor = connection.cursor()
-            query_cursor.execute(sql)
-            result = query_cursor.fetchall()
-            for i in result:
-                self.name = i[0]
-                self.latitude = i[2]
-                self.longitude = i[3]
-        else:
-            self.name = data['name']
-            self.latitude = float(data['latitude'])
-            self.longitude = float(data['longitude'])
 
-    def airport_by_continent_and_transport(self, continent):
+        sql = f"SELECT airport.name, airport.ident, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
+               f"WHERE country.iso_country = airport.iso_country " \
+               f"and airport.ident = '{ident}'"
+        query_cursor = connection.cursor()
+        query_cursor.execute(sql)
+        result = query_cursor.fetchall()
+        for i in result:
+            self.name = i[0]
+            self.latitude = i[2]
+            self.longitude = i[3]
+
+    def airport_by_continent_and_transport(self):
         sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
               f"WHERE country.iso_country = airport.iso_country " \
-              f"and airport.continent = '{continent}' and airport.type in {self.transport.airports_to_land}"
+              f"and airport.continent = '{self.continent}' and airport.type in {self.transport.airports_to_land}"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
         airport_list = []
         for airport in result:
-            data = {'name': airport[0], 'latitude': airport[3], 'longitude': airport[4]}
-            nearby_apt = Airport(airport[1], False, data)
-            nearby_apt.distance = self.distance_to(nearby_apt)
-            airport_list.append(nearby_apt)
+            distance = self.distance_to(airport[3], airport[4])
+            data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
+                    'longitude': airport[4], 'distance': distance, 'active': False}
+            airport_list.append(data)
         return airport_list
 
-    def distance_to(self, target):
+    def distance_to(self, x, y):
         coords_1 = (self.latitude, self.longitude)
-        coords_2 = (target.latitude, target.longitude)
+        coords_2 = (x, y)
         dist = distance.distance(coords_1, coords_2).km
         return int(dist)
 
 tr = Transport('AIRPLANE')
-a = Airport('EFHK', tr)
-lista = a.airport_by_continent_and_transport('EU')
-for info in lista:
-    print(info.name, info.ident, info.latitude, info.longitude, info.active, info.transport)
+a = Airport('EFHK', tr, 'EU')
+lista = a.airport_by_continent_and_transport()
+listax = json.dumps(lista, default=lambda o: o.__dict__, indent=4)
+print(listax)
