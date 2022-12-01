@@ -123,6 +123,7 @@ class Game:
         self.location = location
         self.continent = continent
         self.transport = Transport(transport)
+        print(self.location, self.continent)
         self.airport = Airport(location, self.transport, continent)
         self.score = 0
         self.co2_budget = 10000
