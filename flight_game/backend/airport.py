@@ -69,11 +69,8 @@ class Airport:
 
 class Airport:
 
-    def __init__(self, ident, transport, continent, active=True):
+    def __init__(self, ident):
         self.ident = ident
-        self.active = active
-        self.transport = transport
-        self.continent = continent
         self.distance = 0
 
         sql = f"SELECT airport.name, airport.ident, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
@@ -87,10 +84,10 @@ class Airport:
             self.latitude = i[2]
             self.longitude = i[3]
 
-    def airport_by_continent_and_transport(self):
+    def airport_by_continent_and_transport(self, continent, transport):
         sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude_deg, airport.longitude_deg FROM airport, country " \
               f"WHERE country.iso_country = airport.iso_country " \
-              f"and airport.continent = '{self.continent}' and airport.type in {self.transport.airports_to_land}"
+              f"and airport.continent = '{continent}' and airport.type in {transport.airports_to_land}"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
@@ -99,8 +96,8 @@ class Airport:
             if airport[1] != self.ident:
                 distance = self.distance_to(airport[3], airport[4])
                 data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
-                        'longitude': airport[4], 'distance': distance, 'weather': ' Here call weather for this airport',
-                        'active': False}
+                        'longitude': airport[4], 'distance': distance, 'weather': ' Here call weather for this airport'
+                        }
                 airport_list.append(data)
         return random.choices(airport_list, k=20)
 

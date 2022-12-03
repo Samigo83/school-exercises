@@ -1,6 +1,6 @@
 import requests
 import config
-
+'''
 def output_status(json):
     print ("================================================")
     print ("Trip ID    : " + json["status"]["id"])
@@ -64,4 +64,9 @@ while True:
 
     # http://127.0.0.1:5000/flyto?game=p5eiPgQPT9jbIt1TlqzH&dest=EFHK
     request = "http://127.0.0.1:5000/flyto?game=" + response["status"]["id"] + "&dest=" + destination
+'''
 
+request = "http://127.0.0.1:5000/game?player=Vesa&loc=EFHK&continent=EU&transport=airplane"
+print(request)
+response = requests.get(request).json()
+print(response)

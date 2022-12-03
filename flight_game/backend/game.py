@@ -1,7 +1,5 @@
-import string, random
-from airport import Airport
+from config import connection
 from goal import Goal
-from transport import Transport
 
 '''
 class Game:
@@ -117,32 +115,15 @@ class Game:
 
 class Game:
 
-    def __init__(self, player_name, transport, location, continent):
-        self.player_name = player_name
-        self.transport = transport
-        self.location = location
-        self.continent = continent
-        self.transport = Transport(transport)
-        print(self.location, self.continent)
-        self.airport = Airport(location, self.transport, continent)
-        self.score = 0
-        self.co2_budget = 10000
-        self.distance = [0, 0]
-        self.travel_time = [0, 0]
-        self.data = {
-            'player_status': {
-                'name': self.player_name,
-                'score': self.score,
-                'co2_budget': self.co2_budget,
-                'location': self.location,
-                'travel_time': self.travel_time,
-                'distance': self.distance,
-            }, 'location': {
-                  'ident': self.airport.ident,
-                  'name': self.airport.name,
-                  'latitude': self.airport.latitude,
-                  'longitude': self.airport.longitude,
-                  'active': self.airport.active,
-            }, 'airports': self.airport.airport_by_continent_and_transport()
-        }
+    def __init__(self):
+        self.goals = []
 
+    def get_weather_goals(self):
+        sql = "SELECT * FROM goal"
+        query_cursor = connection.cursor()
+        query_cursor.execute(sql)
+        result = query_cursor.fetchall()
+        for r in result:
+            goal = Goal(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7])
+            self.goals.append(goal)
+        return self.goals

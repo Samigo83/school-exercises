@@ -14,6 +14,7 @@ const apiurl = 'http://127.0.0.1:5000/';
 let continent = 'EU'
 const globalGoals = [];
 const airportMarkers = L.featureGroup().addTo(map);
+const startLoc = 'EFHK'
 
 // icons
 const blueIcon = L.divIcon({className: 'blue-icon'});
@@ -24,7 +25,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-modal').classList.add('hide');
-    gameSetup(`${apiurl}game?player=${playerName}&loc=EFHK&continent=${continent}&transport=airplane`);
+    gameSetup(`${apiurl}game?player=${playerName}&loc=${startLoc}&continent=${continent}&transport=airplane`);
 })
 
 // function to fetch data from API
@@ -94,30 +95,39 @@ function checkGameOver(budget) {
     }
     return true;
 }
+let number = 0;
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
 async function gameSetup(url) {
     try {
+        let continentMenu = document.querySelector('#continent-menu');
+        continentMenu.replaceWith(continentMenu.cloneNode(true));
+        continentMenu = document.querySelector('#continent-menu');
+        continentMenu.options[number].selected = "selected";
+
         document.querySelector('.goal').classList.add('hide');
         airportMarkers.clearLayers();
         const gameData = await getData(url);
         console.log(gameData);
 
-        updateStatus(gameData.player_status)
-
-        document.querySelector('#continent-menu').addEventListener('change', function (evt) {
-            evt.preventDefault();
-            continent = evt.currentTarget.value;
-            gameSetup(`${apiurl}game?player='Sami'&loc=EFHK&continent=${continent}&transport=airplane`);
-        });
+        updateStatus(gameData.player_status);
 
         const playerLocation = L.marker([gameData.location.latitude, gameData.location.longitude]).addTo(map);
         airportMarkers.addLayer(playerLocation);
-        map.flyTo([gameData.location.latitude, gameData.location.longitude], 10);
+        map.flyTo([gameData.location.latitude, gameData.location.longitude], 2);
         playerLocation.bindPopup(`You are here: <b>${gameData.location.name}</b>`);
         playerLocation.setIcon(greenIcon);
         playerLocation.openPopup();
+
+        continentMenu = document.querySelector('#continent-menu');
+                continentMenu.addEventListener('change', function () {
+                        number = continentMenu.selectedIndex;
+                        continent = continentMenu.value;
+                        gameSetup(`${apiurl}flyto?loc=${gameData.location.ident}&continent=${continent}&transport=airplane`);
+                });
+
+        // Event listener for Transport
 
         for (let airport of gameData.airports) {
             const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
@@ -141,13 +151,10 @@ async function gameSetup(url) {
             popupContent.append(p);
             marker.bindPopup(popupContent);
             goButton.addEventListener('click', function () {
-                gameSetup(`${apiurl}game?player='Sami'&loc=EFHK&continent=${continent}&transport=airplane`);
+                gameSetup(`${apiurl}flyto?loc=${airport.ident}&continent=${continent}&transport=airplane`);
             });
         }
-
-    }
-        // Update Goals here!
-    catch
+    } catch
         (error) {
         console.log(error);
     }
@@ -158,12 +165,3 @@ document.querySelector('.goal').addEventListener('submit', function (evt) {
     evt.currentTarget.classList.add('hide');
 });
 
-// event listeners for continent and transport
-/*
-        document.querySelector('#continent-menu').addEventListener('change', function (evt) {
-            continent = evt.currentTarget.value;
-            console.log(gameData.location.ident)
-            console.log(continent)
-            gameSetup(`${apiurl}game?loc=${gameData.location.ident}&continent=${continent}&transport=airplane`);
-        });
-    */
