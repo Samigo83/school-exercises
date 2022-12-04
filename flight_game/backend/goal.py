@@ -6,6 +6,7 @@ class Goal:
         self.description = description
         self.icon = "https://openweathermap.org/img/wn/" + icon + ".png"
         self.target = target
+        self.reached = False
         if (target_minvalue is None):
             self.target_minvalue = 0.0
         else:

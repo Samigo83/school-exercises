@@ -10,6 +10,7 @@ map.setView([60, 24], 7);
 
 
 // global variables
+let number = 0;
 const apiurl = 'http://127.0.0.1:5000/';
 let continent = 'EU'
 const globalGoals = [];
@@ -45,21 +46,20 @@ function updateStatus(status) {
 }
 
 // function to show weather at selected airport
-function showWeather(airport) {
-    document.querySelector('#airport-name').innerHTML = `Weather at ${airport.name}`;
-    document.querySelector('#airport-temp').innerHTML = `${airport.weather.temp}°C`;
-    document.querySelector('#weather-icon').src = airport.weather.icon;
-    document.querySelector('#airport-conditions').innerHTML = airport.weather.description;
-    document.querySelector('#wind').innerHTML = `${airport.weather.wind.speed}m/s`;
+function showWeather(data) {
+    document.querySelector('#airport-name').innerHTML = `Weather at ${data.location.name}`;
+    document.querySelector('#airport-temp').innerHTML = `${data.weather.temp}°C`;
+    document.querySelector('#weather-icon').src = data.weather.icon;
+    document.querySelector('#airport-conditions').innerHTML = data.weather.description;
+    document.querySelector('#wind').innerHTML = `${data.weather.wind.speed}m/s`;
 }
 
 // function to check if any goals have been reached
-function checkGoals(meetsGoals) {
-    if (meetsGoals.length > 0) {
-        for (let goal of meetsGoals) {
-            if (!globalGoals.includes(goal)) {
+function checkGoals(playerGoals) {
+    if (playerGoals.length > 0) {
+        for (let goal of playerGoals) {
+            if (!globalGoals.includes(goal.goalid)) {
                 document.querySelector('.goal').classList.remove('hide');
-                location.href = '#goals'
             }
         }
     }
@@ -88,14 +88,17 @@ function updateGoals(goals) {
 }
 
 // function to check if game is over
-function checkGameOver(budget) {
-    if (budget <= 0) {
+
+function checkGameOver(data) {
+    if (data.player_status.co2_budget <= 0) {
         alert(`Game Over. ${globalGoals.length} goals reached.`);
         return false;
+    } else if (data.player_status.goals.length >= 8) {
+        alert('You won the game');
+    } else {
+        return true;
     }
-    return true;
 }
-let number = 0;
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
@@ -111,11 +114,13 @@ async function gameSetup(url) {
         const gameData = await getData(url);
         console.log(gameData);
 
+        if (!checkGameOver(gameData)) return
+        showWeather(gameData);
         updateStatus(gameData.player_status);
 
         const playerLocation = L.marker([gameData.location.latitude, gameData.location.longitude]).addTo(map);
         airportMarkers.addLayer(playerLocation);
-        map.flyTo([gameData.location.latitude, gameData.location.longitude], 2);
+        map.flyTo([gameData.continent[0], gameData.continent[1]], 2);
         playerLocation.bindPopup(`You are here: <b>${gameData.location.name}</b>`);
         playerLocation.setIcon(greenIcon);
         playerLocation.openPopup();
@@ -133,10 +138,6 @@ async function gameSetup(url) {
             const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
             airportMarkers.addLayer(marker)
 
-            // Function for weather call here!
-            // Check for goals here!
-            // Check if game is over here!
-
             marker.setIcon(blueIcon);
             const popupContent = document.createElement("div");
             const h4 = document.createElement('h4');
@@ -151,17 +152,39 @@ async function gameSetup(url) {
             popupContent.append(p);
             marker.bindPopup(popupContent);
             goButton.addEventListener('click', function () {
-                gameSetup(`${apiurl}flyto?loc=${airport.ident}&continent=${continent}&transport=airplane`);
+                gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${gameData.location.ident}&continent=${continent}&transport=airplane`);
             });
+
         }
+        checkGoals(gameData.player_status.goals);
+        updateGoals(gameData.goals);
     } catch
         (error) {
         console.log(error);
     }
 }
 
+
 // event listener to hide goal splash
-document.querySelector('.goal').addEventListener('submit', function (evt) {
+document.querySelector('.goal').addEventListener('click', function (evt) {
     evt.currentTarget.classList.add('hide');
 });
 
+/*
+document.querySelector('#airplane').addEventListener('click', function (evt) {
+    clearButtons();
+    evt.currentTarget.classList.replace('button-white', 'button-grey')
+})
+
+document.querySelector('#helicopter').addEventListener('click', function (evt) {
+    clearButtons();
+    evt.currentTarget.classList.replace('button-white', 'button-grey')
+})
+
+function clearButtons() {
+const transportButtons = document.getElementsByClassName('transport')
+for (let e of transportButtons) {
+    e.classList.replace('button-grey', 'button-white');
+}
+}
+*/

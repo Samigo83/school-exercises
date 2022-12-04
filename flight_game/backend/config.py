@@ -14,3 +14,5 @@ connection = mysql.connector.connect(
     buffered=True
     )
 
+ow_apikey=os.environ.get('OW_APIKEY')
+
