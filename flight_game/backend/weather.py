@@ -1,6 +1,7 @@
 import requests
 from config import ow_apikey
 
+
 class Weather:
 
     def check_weather_goals(self, game, player):

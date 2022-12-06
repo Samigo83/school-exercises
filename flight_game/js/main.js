@@ -16,6 +16,7 @@ const apiurl = 'http://127.0.0.1:5000/';
 
 const globalGoals = [];
 const airportMarkers = L.featureGroup().addTo(map);
+const playerLocation = L.marker([0, 0]);
 let playerLoc = 'EFHK'
 let playerPrevLoc = ''
 let continent = 'EU'
@@ -173,29 +174,25 @@ function sleep(ms) {
 
 // function to move marker to target coordinates
 async function moveMarker(data) {
-        const playerLocation = L.marker([data.location.latitude, data.location.longitude]);
+    playerLocation.setLatLng([data.location.latitude, data.location.longitude]);
+    playerLocation.setIcon(greenIcon);
+    playerLocation.addTo(map);
+    map.flyTo([data.location.latitude, data.location.longitude]);
+    playerLocation.setIcon(greenIcon);
+    await sleep(2000);
+    map.flyTo([data.continent[0], data.continent[1]], 2);
+    await sleep(2000);
     if (data.player_status.flight_coords.length > 1) {
         for (let coordinates of data.player_status.flight_coords) {
             {
-                airportMarkers.clearLayers();
-                const playerLocation = L.marker([coordinates[0], coordinates[1]]).addTo(map);
-                playerLocation.setIcon(greenIcon);
-                airportMarkers.addLayer(playerLocation);
-                console.log(coordinates[0], coordinates[1]);
+                map.flyTo([coordinates[0], coordinates[1]], 5);
+                playerLocation.setLatLng([coordinates[0], coordinates[1]]);
                 await sleep(25)
             }
-            airportMarkers.addLayer(playerLocation);
-            map.flyTo([data.continent[0], data.continent[1]], 2);
-            playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
-            playerLocation.setIcon(greenIcon);
-            playerLocation.openPopup();
+
         }
-    } else {
-        playerLocation.addTo(map);
-        playerLocation.setIcon(greenIcon);
-        airportMarkers.addLayer(playerLocation);
-        map.flyTo([data.continent[0], data.continent[1]], 2);
         playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
+        playerLocation.setIcon(greenIcon);
         playerLocation.openPopup();
     }
 }
@@ -208,8 +205,8 @@ async function gameSetup(url) {
         airportMarkers.clearLayers();
         const gameData = await getData(url);
         console.log(gameData);
-        console.log(transport);
         playerLoc = gameData.location.ident;
+        continent = gameData.continent[2];
 
         showWeather(gameData);
         updateStatus(gameData.player_status);
@@ -239,7 +236,6 @@ async function gameSetup(url) {
                 goButton.addEventListener('click', function () {
                     gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${playerLoc}&continent=${continent}&transport=${transport}`);
                 });
-
             }
         }
         checkGoals(gameData.player_status.goals);

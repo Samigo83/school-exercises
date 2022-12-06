@@ -4,6 +4,8 @@ from transport import Transport
 
 
 class Player:
+
+
     def __init__(self):
         self.name = ''
         self.score = 0
@@ -82,7 +84,6 @@ class Player:
             self.to_topten = True
         else:
             self.to_topten = False
-
 
     def flight_plan_coords(self):
         flight_vector_x_multip = self.coordinates[0][0] - self.coordinates[1][0]

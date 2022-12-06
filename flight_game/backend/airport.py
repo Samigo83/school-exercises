@@ -45,7 +45,7 @@ class Airport:
             return airport_list
 
     def continent_coords(self, continent):
-        sql = f"SELECT latitude, longitude FROM continent WHERE code='{continent}'"
+        sql = f"SELECT latitude, longitude, code FROM continent WHERE code='{continent}'"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         coords = query_cursor.fetchone()
