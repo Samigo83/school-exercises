@@ -4,6 +4,7 @@
     --white: rgb(248,246,246);
     --grey: rgb(128, 128, 128);
     --dark-grey: rgb(57, 57, 57);
+    --yellow: rgb(220, 200, 20);
 }
 
 
@@ -23,6 +24,11 @@
     color: var(--black)
 }
 
+.button-yellow {
+    background-color: var(--yellow);
+    color: var(--black)
+}
+
 .button:hover {
     transform: scale(1.1);
 }
@@ -32,8 +38,21 @@
     flex-wrap: wrap;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .space-evenly {
     justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.center {
+    justify-content: center;
 }
 
 .responsive-img {
@@ -85,6 +104,11 @@ ion-icon {
 ul {
     list-style-type: none;
     padding: 0;
+}
+
+
+.transport-menu p {
+    margin-top: 0;
 }
 
 main {
@@ -165,6 +189,47 @@ main {
     position: absolute;
     top: 0;
     z-index: 9999;
+}
+
+#topten-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 217, 111, 0.95);
+    position: absolute;
+    text-align: center;
+    top: 0;
+    z-index: 9999;
+}
+
+#topten-modal h2 {
+    position: relative;
+}
+
+#topten-table {
+    margin: 2rem auto;
+    position: relative;
+    border-spacing: 0;
+    border-top: 2px var(--black) solid;
+    border-left: 2px var(--black) solid;
+    border-right: 2px var(--black) solid;
+    border-radius: 4px;
+}
+
+
+#topten-table td {
+    border-right: 2px var(--black) solid;
+    border-bottom: 2px var(--black) solid;
+    padding: 1rem;
+}
+
+#topten-table td:last-child {
+    border-right: none;
+}
+
+
+#topten-close {
+    margin: 2rem auto;
+    position: relative;
 }
 
 #player-form {

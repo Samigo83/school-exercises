@@ -23,22 +23,26 @@ class Airport:
 
     def airport_by_continent_and_transport(self, continent, transport):
         sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude_deg, airport.longitude_deg, " \
-              f"continent.latitude, continent.longitude " \
+              f"continent.code  " \
               f"FROM airport, country, continent " \
               f"WHERE country.iso_country = airport.iso_country AND country.continent = continent.code " \
-              f"and airport.continent = '{continent}' and airport.type in {transport.airports_to_land}"
+              f"and airport.continent = '{continent}' and airport.type in ({transport.airports_to_land})"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
         airport_list = []
-        for airport in result:
-            if airport[1] != self.ident:
-                distance = self.distance_to(airport[3], airport[4])
-                data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
-                        'longitude': airport[4], 'distance': distance
-                        }
-                airport_list.append(data)
-        return random.choices(airport_list, k=20)
+        if len(result) > 0:
+            for airport in result:
+                if airport[1] != self.ident:
+                    distance = self.distance_to(airport[3], airport[4])
+                    data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
+                            'longitude': airport[4], 'distance': distance, 'continent': airport[5]
+                            }
+                    airport_list.append(data)
+        if len(airport_list) > 20:
+            return random.choices(airport_list, k=20)
+        else:
+            return airport_list
 
     def continent_coords(self, continent):
         sql = f"SELECT latitude, longitude FROM continent WHERE code='{continent}'"

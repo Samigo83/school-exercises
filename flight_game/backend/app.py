@@ -18,30 +18,31 @@ def newgame(userinput, location, transport, continent):
     g = Game()
     global player
     player = Player()
-    player.location = location
     player.name = userinput
+    player.transport = Transport(transport)
     data = {'player_status': player,
             'location': Airport(location),
             'continent': Airport(location).continent_coords(continent),
             'goals': g.get_weather_goals(),
             'weather': Weather(Airport(location).latitude, Airport(location).longitude, g, player),
-            'airports': Airport(location).airport_by_continent_and_transport(continent, Transport(transport))
+            'airports': Airport(location).airport_by_continent_and_transport(continent, player.transport)
     }
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
 
 def fly(location, prev_location, transport, continent):
+    player.flight_coords = []
     player.update_dist_budget_time_score(location, prev_location)
+    player.transport = Transport(transport)
     data = {'player_status': player,
             'location': Airport(location),
             'continent': Airport(location).continent_coords(continent),
             'goals': g.goals,
             'weather': Weather(Airport(location).latitude, Airport(location).longitude, g, player),
-            'airports': Airport(location).airport_by_continent_and_transport(continent, Transport(transport))
+            'airports': Airport(location).airport_by_continent_and_transport(continent, player.transport)
             }
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
-
 
 # http://127.0.0.1:5000/game?player=Vesa&loc=EFHK&continent=EU&transport=airplane
 @app.route('/game')
@@ -54,7 +55,6 @@ def game():
     data = newgame(player, loc, transport.upper(), continent.upper())
     return data
 
-
 # http://127.0.0.1:5000/flyto?loc=EFHK&continent=EU&transport=airplane
 @app.route('/flyto')
 def flyto():
@@ -66,6 +66,12 @@ def flyto():
     data = fly(loc, prevloc, transport.upper(), continent.upper())
     return data
 
+# http://127.0.0.1:5000/topten
+@app.route('/topten')
+def get_topten_data():
+    data = Player().get_topten()
+    json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
+    return json_data
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=5000)

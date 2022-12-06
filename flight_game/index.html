@@ -11,10 +11,11 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js" defer></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js" defer></script>
     <script src="js/main.js" defer></script>
+    <script src="js/decimal.js" defer></script>
     <title>Top Gun</title>
 </head>
 <body>
-<div class="container">
+<div class="container" id="top">
     <header class="page-header">
         <h1 class="page-title">
             <ion-icon name="logo-octocat"></ion-icon>&nbsp;Flying&nbsp;Bolivar&nbsp;<ion-icon
@@ -40,12 +41,16 @@
                         <option value="OC">Oceania</option>
                     </select>
                 </li>
- <!--               <li>
-                    <button class="button button-white transport" id="airplane" value="airplane">Airplane</button>
-                </li>
-                <li>
-                    <button class="button button-white transport" id="helicopter" value="helicopter">Helicopter</button>
-                </li> -->
+                <div>
+                    <p>Choose flying device</p>
+                    <div class="flex-wrap transport-menu">
+                    <button class="button button-white transport-item" id="airplane" value="airplane">Airplane</button>
+                    <button class="button button-white transport-item" id="fighter" value="fighter">Fighter</button>
+                    <button class="button button-white transport-item" id="helicopter" value="helicopter">Helicopter</button>
+                    <button class="button button-white transport-item" id="glider" value="glider">Glider</button>
+                    <button class="button button-white transport-item" id="balloon" value="balloon">Balloon</button>
+                    </div>
+                </div>
             </ul>
         </nav>
     </header>
@@ -97,8 +102,9 @@
             </section>
         </div>
     </main>
-    <footer class="page-footer">
-        <p>Thank you for flying with us. We hope to see you soon.</p>
+    <footer class="page-footer flex-wrap space-between">
+        <button class="button button-white" id="topten-button">Topten</button>
+        <button class="button button-white" id="help-button">Help</button>
     </footer>
     <div class="goal hide">
         <h2>You got this maaaan!</h2>
@@ -110,6 +116,17 @@
         <input id="player-input" type="text" placeholder="Player name" required>
         <input type="submit" value="Start game">
     </form>
+</div>
+<div id="topten-modal" class="flex-column center hide">
+    <h2>Hall of fame</h2>
+    <table id="topten-table">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Score</td>
+        </tr>
+    </table>
+    <button class="button button-white" id="topten-close">Close</button>
 </div>
 </body>
 </html>

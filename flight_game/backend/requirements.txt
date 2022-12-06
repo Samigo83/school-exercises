@@ -9,3 +9,4 @@ Flask-CORS~=3.0.10
 // Install python package -> dotenv
 // sql.connector is defined in config.py -> to use -> from config import connection
 // in every .py file you use SQL.
+

@@ -1,4 +1,5 @@
 'use strict';
+
 /* 1. show map using Leaflet library. (L comes from the Leaflet library) */
 
 const map = L.map('map', {tap: false});
@@ -12,10 +13,13 @@ map.setView([60, 24], 7);
 // global variables
 let number = 0;
 const apiurl = 'http://127.0.0.1:5000/';
-let continent = 'EU'
+
 const globalGoals = [];
 const airportMarkers = L.featureGroup().addTo(map);
-const startLoc = 'EFHK'
+let playerLoc = 'EFHK'
+let playerPrevLoc = ''
+let continent = 'EU'
+let transport = 'airplane'
 
 // icons
 const blueIcon = L.divIcon({className: 'blue-icon'});
@@ -26,7 +30,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-modal').classList.add('hide');
-    gameSetup(`${apiurl}game?player=${playerName}&loc=${startLoc}&continent=${continent}&transport=airplane`);
+    gameSetup(`${apiurl}game?player=${playerName}&loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 })
 
 // function to fetch data from API
@@ -88,15 +92,111 @@ function updateGoals(goals) {
 }
 
 // function to check if game is over
-
 function checkGameOver(data) {
     if (data.player_status.co2_budget <= 0) {
         alert(`Game Over. ${globalGoals.length} goals reached.`);
+        if (data.player_status.to_topten) {
+            build_top_ten();
+            const toptenModal = document.querySelector('#topten-modal');
+            const p = document.createElement("p");
+            p.innerHTML = 'NICE FLYING THERE!! U MADE IT TO THE TOP10!!';
+            toptenModal.appendChild(p);
+            toptenModal.classList.remove('hide');
+        }
         return false;
     } else if (data.player_status.goals.length >= 8) {
         alert('You won the game');
+        if (data.player_status.to_topten) {
+            build_top_ten();
+            const toptenModal = document.querySelector('#topten-modal');
+            const p = document.createElement("p");
+            p.innerHTML = 'NICE FLYING THERE!! U MADE IT TO THE TOP10!!';
+            toptenModal.appendChild(p);
+            toptenModal.classList.remove('hide');
+        }
     } else {
         return true;
+    }
+}
+
+// function to set all buttons to default style
+function clearButtons(target, style1, style2) {
+    const elements = document.getElementsByClassName(`${target}`)
+    for (let e of elements) {
+        e.classList.replace(style1, style2);
+    }
+}
+
+// function to build topten10 table
+async function build_top_ten() {
+    const data = await getData(`${apiurl}topten`);
+    let i = 1;
+    const table = document.querySelector('#topten-table');
+    table.innerHTML = '';
+    const tr3 = document.createElement("tr");
+    const td3 = document.createElement("td");
+    td3.innerHTML = '#';
+    tr3.appendChild(td3);
+    const td4 = document.createElement("td");
+    td4.innerHTML = 'Name';
+    tr3.appendChild(td4);
+    const td5 = document.createElement("td");
+    td5.innerHTML = 'Score';
+    tr3.appendChild(td5);
+    table.appendChild(tr3)
+
+    for (let player of data) {
+        const tr = document.createElement("tr");
+        const placeNumber = document.createElement('td');
+        placeNumber.innerHTML = i.toString();
+        tr.appendChild(placeNumber);
+        const td = document.createElement("td");
+        td.innerHTML = player[1];
+        tr.appendChild(td);
+        const td2 = document.createElement("td");
+        td2.innerHTML = player[2];
+        tr.appendChild(td2);
+        table.appendChild(tr);
+        i++;
+    }
+    const toptenModal = document.querySelector('#topten-modal')
+    document.querySelector('#topten-button').addEventListener('click', function () {
+        toptenModal.classList.remove('hide');
+        location.href = "#top";
+    });
+}
+
+// function to wait for a while
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// function to move marker to target coordinates
+async function moveMarker(data) {
+        const playerLocation = L.marker([data.location.latitude, data.location.longitude]);
+    if (data.player_status.flight_coords.length > 1) {
+        for (let coordinates of data.player_status.flight_coords) {
+            {
+                airportMarkers.clearLayers();
+                const playerLocation = L.marker([coordinates[0], coordinates[1]]).addTo(map);
+                playerLocation.setIcon(greenIcon);
+                airportMarkers.addLayer(playerLocation);
+                console.log(coordinates[0], coordinates[1]);
+                await sleep(25)
+            }
+            airportMarkers.addLayer(playerLocation);
+            map.flyTo([data.continent[0], data.continent[1]], 2);
+            playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
+            playerLocation.setIcon(greenIcon);
+            playerLocation.openPopup();
+        }
+    } else {
+        playerLocation.addTo(map);
+        playerLocation.setIcon(greenIcon);
+        airportMarkers.addLayer(playerLocation);
+        map.flyTo([data.continent[0], data.continent[1]], 2);
+        playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
+        playerLocation.openPopup();
     }
 }
 
@@ -104,57 +204,43 @@ function checkGameOver(data) {
 // this is the main function that creates the game and calls the other functions
 async function gameSetup(url) {
     try {
-        let continentMenu = document.querySelector('#continent-menu');
-        continentMenu.replaceWith(continentMenu.cloneNode(true));
-        continentMenu = document.querySelector('#continent-menu');
-        continentMenu.options[number].selected = "selected";
-
         document.querySelector('.goal').classList.add('hide');
         airportMarkers.clearLayers();
         const gameData = await getData(url);
         console.log(gameData);
+        console.log(transport);
+        playerLoc = gameData.location.ident;
 
-        if (!checkGameOver(gameData)) return
         showWeather(gameData);
         updateStatus(gameData.player_status);
+        if (!checkGameOver(gameData)) return
 
-        const playerLocation = L.marker([gameData.location.latitude, gameData.location.longitude]).addTo(map);
-        airportMarkers.addLayer(playerLocation);
-        map.flyTo([gameData.continent[0], gameData.continent[1]], 2);
-        playerLocation.bindPopup(`You are here: <b>${gameData.location.name}</b>`);
-        playerLocation.setIcon(greenIcon);
-        playerLocation.openPopup();
+        await moveMarker(gameData);
 
-        continentMenu = document.querySelector('#continent-menu');
-                continentMenu.addEventListener('change', function () {
-                        number = continentMenu.selectedIndex;
-                        continent = continentMenu.value;
-                        gameSetup(`${apiurl}flyto?loc=${gameData.location.ident}&continent=${continent}&transport=airplane`);
+        if (gameData.airports.length < 1) {
+            alert("No airports found. Remember: Landing spots for balloon are only found in North-America and some in Europe.");
+        } else {
+            for (let airport of gameData.airports) {
+                const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
+                airportMarkers.addLayer(marker)
+                marker.setIcon(blueIcon);
+                const popupContent = document.createElement("div");
+                const h4 = document.createElement('h4');
+                h4.innerHTML = airport.name;
+                popupContent.append(h4);
+                const goButton = document.createElement("button");
+                goButton.classList.add('button');
+                goButton.innerHTML = 'Fly here';
+                popupContent.append(goButton);
+                const p = document.createElement("p");
+                p.innerHTML = `Distance ${airport.distance}km`;
+                popupContent.append(p);
+                marker.bindPopup(popupContent);
+                goButton.addEventListener('click', function () {
+                    gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${playerLoc}&continent=${continent}&transport=${transport}`);
                 });
 
-        // Event listener for Transport
-
-        for (let airport of gameData.airports) {
-            const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
-            airportMarkers.addLayer(marker)
-
-            marker.setIcon(blueIcon);
-            const popupContent = document.createElement("div");
-            const h4 = document.createElement('h4');
-            h4.innerHTML = airport.name;
-            popupContent.append(h4);
-            const goButton = document.createElement("button");
-            goButton.classList.add('button');
-            goButton.innerHTML = 'Fly here';
-            popupContent.append(goButton);
-            const p = document.createElement("p");
-            p.innerHTML = `Distance ${airport.distance}km`;
-            popupContent.append(p);
-            marker.bindPopup(popupContent);
-            goButton.addEventListener('click', function () {
-                gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${gameData.location.ident}&continent=${continent}&transport=airplane`);
-            });
-
+            }
         }
         checkGoals(gameData.player_status.goals);
         updateGoals(gameData.goals);
@@ -170,21 +256,53 @@ document.querySelector('.goal').addEventListener('click', function (evt) {
     evt.currentTarget.classList.add('hide');
 });
 
-/*
+// event listeners for transport buttons
 document.querySelector('#airplane').addEventListener('click', function (evt) {
-    clearButtons();
-    evt.currentTarget.classList.replace('button-white', 'button-grey')
-})
+    clearButtons('transport-item', 'button-yellow', 'button-white');
+    transport = evt.currentTarget.value;
+    evt.currentTarget.classList.replace('button-white', 'button-yellow')
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+});
+
+document.querySelector('#fighter').addEventListener('click', function (evt) {
+    clearButtons('transport-item', 'button-yellow', 'button-white');
+    transport = evt.currentTarget.value;
+    evt.currentTarget.classList.replace('button-white', 'button-yellow');
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+});
 
 document.querySelector('#helicopter').addEventListener('click', function (evt) {
-    clearButtons();
-    evt.currentTarget.classList.replace('button-white', 'button-grey')
-})
+    clearButtons('transport-item', 'button-yellow', 'button-white');
+    transport = evt.currentTarget.value;
+    evt.currentTarget.classList.replace('button-white', 'button-yellow');
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+});
 
-function clearButtons() {
-const transportButtons = document.getElementsByClassName('transport')
-for (let e of transportButtons) {
-    e.classList.replace('button-grey', 'button-white');
-}
-}
-*/
+document.querySelector('#glider').addEventListener('click', function (evt) {
+    clearButtons('transport-item', 'button-yellow', 'button-white');
+    transport = evt.currentTarget.value;
+    evt.currentTarget.classList.replace('button-white', 'button-yellow');
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+});
+
+document.querySelector('#balloon').addEventListener('click', function (evt) {
+    clearButtons('transport-item', 'button-yellow', 'button-white');
+    transport = evt.currentTarget.value;
+    evt.currentTarget.classList.replace('button-white', 'button-yellow');
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+});
+
+document.querySelector('#topten-button').addEventListener('click', build_top_ten())
+document.querySelector('#topten-close').addEventListener('click', function () {
+    document.querySelector('#topten-modal').classList.add('hide');
+});
+
+const continentMenu = document.querySelector('#continent-menu');
+continentMenu.addEventListener('change', function () {
+    continent = continentMenu.value;
+    gameSetup(`${apiurl}flyto?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
+});
+
+
+
+
