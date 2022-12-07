@@ -169,32 +169,33 @@ async function build_top_ten() {
 
 // function to wait for a while
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // function to move marker to target coordinates
 async function moveMarker(data) {
-    playerLocation.setLatLng([data.location.latitude, data.location.longitude]);
-    playerLocation.setIcon(greenIcon);
-    playerLocation.addTo(map);
-    map.flyTo([data.location.latitude, data.location.longitude]);
-    playerLocation.setIcon(greenIcon);
-    await sleep(2000);
-    map.flyTo([data.continent[0], data.continent[1]], 2);
-    await sleep(2000);
     if (data.player_status.flight_coords.length > 1) {
+        map.flyTo([data.location.latitude, data.location.longitude]);
+        await sleep(1500);
+        map.flyTo([data.continent[0], data.continent[1]], 2);
+        await sleep(1500);
         for (let coordinates of data.player_status.flight_coords) {
-            {
-                map.flyTo([coordinates[0], coordinates[1]], 5);
-                playerLocation.setLatLng([coordinates[0], coordinates[1]]);
-                await sleep(25)
-            }
-
+            map.flyTo([coordinates[0], coordinates[1]], 5);
+            playerLocation.setLatLng([coordinates[0], coordinates[1]]);
+            await sleep(25);
         }
-        playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
+    } else {
+        playerLocation.setLatLng([data.location.latitude, data.location.longitude]);
         playerLocation.setIcon(greenIcon);
-        playerLocation.openPopup();
+        playerLocation.addTo(map);
+        map.flyTo([data.location.latitude, data.location.longitude]);
+        await sleep(1500);
+        map.flyTo([data.continent[0], data.continent[1]], 2);
+        await sleep(1500);
     }
+    playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
+    playerLocation.setIcon(greenIcon);
+    playerLocation.openPopup();
 }
 
 // function to set up game
