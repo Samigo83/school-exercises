@@ -47,6 +47,8 @@ function updateStatus(status) {
     document.querySelector('#player-name').innerHTML = `Player: ${status.name}`;
     document.querySelector('#score').innerHTML = status.score;
     document.querySelector('#budget').innerHTML = status.co2_budget;
+    document.querySelector('#distance').innerHTML = status.distance;
+    document.querySelector('#time').innerHTML = status.travel_time;
     // Should we add here more data about player's current status? Like distance? Time?
 }
 
@@ -258,35 +260,35 @@ document.querySelector('#airplane').addEventListener('click', function (evt) {
     clearButtons('transport-item', 'button-yellow', 'button-white');
     transport = evt.currentTarget.value;
     evt.currentTarget.classList.replace('button-white', 'button-yellow')
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 document.querySelector('#fighter').addEventListener('click', function (evt) {
     clearButtons('transport-item', 'button-yellow', 'button-white');
     transport = evt.currentTarget.value;
     evt.currentTarget.classList.replace('button-white', 'button-yellow');
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 document.querySelector('#helicopter').addEventListener('click', function (evt) {
     clearButtons('transport-item', 'button-yellow', 'button-white');
     transport = evt.currentTarget.value;
     evt.currentTarget.classList.replace('button-white', 'button-yellow');
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 document.querySelector('#glider').addEventListener('click', function (evt) {
     clearButtons('transport-item', 'button-yellow', 'button-white');
     transport = evt.currentTarget.value;
     evt.currentTarget.classList.replace('button-white', 'button-yellow');
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 document.querySelector('#balloon').addEventListener('click', function (evt) {
     clearButtons('transport-item', 'button-yellow', 'button-white');
     transport = evt.currentTarget.value;
     evt.currentTarget.classList.replace('button-white', 'button-yellow');
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&prevloc=${playerPrevLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 document.querySelector('#topten-button').addEventListener('click', build_top_ten())
@@ -297,7 +299,7 @@ document.querySelector('#topten-close').addEventListener('click', function () {
 const continentMenu = document.querySelector('#continent-menu');
 continentMenu.addEventListener('change', function () {
     continent = continentMenu.value;
-    gameSetup(`${apiurl}flyto?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}refresh?loc=${playerLoc}&continent=${continent}&transport=${transport}`);
 });
 
 

@@ -5,9 +5,8 @@ from transport import Transport
 
 class Player:
 
-
-    def __init__(self):
-        self.name = ''
+    def __init__(self, name, transport):
+        self.name = name
         self.score = 0
         self.co2_budget = 10000
         self.distance = 0
@@ -15,10 +14,10 @@ class Player:
         self.coordinates = []
         self.flight_coords = []
         self.goals = []
-        self.transport = ''
+        self.transport = Transport(transport)
         self.to_topten = False
 
-    def update_dist_budget_time_score(self, location, prevlocation):
+    def update(self, location, prevlocation, transport):
         sql = f"SELECT airport.latitude_deg, airport.longitude_deg FROM airport, country " \
               f"WHERE country.iso_country = airport.iso_country " \
               f"and airport.ident = '{location}' UNION SELECT airport.latitude_deg, airport.longitude_deg " \
@@ -28,9 +27,11 @@ class Player:
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         self.coordinates = query_cursor.fetchall()
+        self.transport = Transport(transport)
 
         if len(self.coordinates) >= 2:
 
+            self.flight_coords = []
             dist = distance.distance(self.coordinates[0], self.coordinates[1]).km
             self.distance += round(float(dist), 1)
             self.travel_time += round(float(dist / self.transport.speed), 1)
@@ -41,11 +42,8 @@ class Player:
                 self.co2_budget = 0
                 self.check_for_topten()
 
-
             flight_vector_x_multip = self.coordinates[0][0] - self.coordinates[1][0]
             flight_vector_y_multip = self.coordinates[0][1] - self.coordinates[1][1]
-            print(self.coordinates[1][0], self.coordinates[0][0])
-            print(flight_vector_x_multip, flight_vector_y_multip)
 
             u_vector_x_multip = self.coordinates[1][0]
             u_vector_y_multip = self.coordinates[1][1]
@@ -56,11 +54,9 @@ class Player:
                 coords = [x, y]
                 self.flight_coords.append(coords)
 
-    def get_topten(self):
-        sql = f"SELECT * FROM top10 order by score desc"
-        query_cursor = connection.cursor()
-        query_cursor.execute(sql)
-        return query_cursor.fetchall()
+    def refresh(self, transport):
+        self.flight_coords = []
+        self.transport = Transport(transport)
 
     def check_for_topten(self):
         sql = f"SELECT id, name, score FROM top10 WHERE score in " \
@@ -84,21 +80,6 @@ class Player:
             self.to_topten = True
         else:
             self.to_topten = False
-
-    def flight_plan_coords(self):
-        flight_vector_x_multip = self.coordinates[0][0] - self.coordinates[1][0]
-        flight_vector_y_multip = self.coordinates[0][1] - self.coordinates[1][1]
-        print(self.coordinates[1][0], self.coordinates[0][0])
-        print(flight_vector_x_multip, flight_vector_y_multip)
-
-        u_vector_x_multip = self.coordinates[1][0]
-        u_vector_y_multip = self.coordinates[1][1]
-
-        for i in range(100, 0, -1):
-            x = u_vector_x_multip + (1/i * flight_vector_x_multip)
-            y = u_vector_y_multip + (1/i * flight_vector_y_multip)
-            coords = [x, y]
-            self.flight_coords.append(coords)
 
 
 
