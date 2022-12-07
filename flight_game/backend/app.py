@@ -9,11 +9,13 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
 def get_topten():
     sql = f"SELECT * FROM top10 order by score desc"
     query_cursor = connection.cursor()
     query_cursor.execute(sql)
     return query_cursor.fetchall()
+
 
 def newgame(userinput, location, transport, continent):
     global g
@@ -22,6 +24,7 @@ def newgame(userinput, location, transport, continent):
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
 
+
 def fly(location, prev_location, transport, continent):
     g.player_status.update(location, prev_location, transport)
     g.update(location, continent)
@@ -29,12 +32,14 @@ def fly(location, prev_location, transport, continent):
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
 
+
 def refresh(location, continent, transport):
     g.player_status.refresh(transport)
     g.update(location, continent)
     data = g
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
+
 
 # http://127.0.0.1:5000/game?player=Vesa&loc=EFHK&continent=EU&transport=airplane
 @app.route('/game')
@@ -47,6 +52,7 @@ def game():
     data = newgame(player, loc, transport.upper(), continent.upper())
     return data
 
+
 # http://127.0.0.1:5000/flyto?loc=EFHA&prevloc=EFHK&continent=EU&transport=airplane
 @app.route('/flyto')
 def flyto():
@@ -58,6 +64,7 @@ def flyto():
     data = fly(loc, prevloc, transport.upper(), continent.upper())
     return data
 
+
 # http://127.0.0.1:5000/refresh?loc=EFHKcontinent=EU&transport=airplane
 @app.route('/refresh')
 def refresh_game():
@@ -67,6 +74,7 @@ def refresh_game():
     continent = args.get('continent')
     data = refresh(loc, continent.upper(), transport.upper())
     return data
+
 
 # http://127.0.0.1:5000/topten
 @app.route('/topten')

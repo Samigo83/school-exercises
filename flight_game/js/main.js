@@ -18,7 +18,6 @@ const globalGoals = [];
 const airportMarkers = L.featureGroup().addTo(map);
 const playerLocation = L.marker([0, 0]);
 let playerLoc = 'EFHK'
-let playerPrevLoc = ''
 let continent = 'EU'
 let transport = 'airplane'
 
@@ -177,10 +176,8 @@ function sleep(ms) {
 // function to move marker to target coordinates
 async function moveMarker(data) {
     if (data.player_status.flight_coords.length > 1) {
-        map.flyTo([data.location.latitude, data.location.longitude]);
-        await sleep(1500);
-        map.flyTo([data.continent[0], data.continent[1]], 2);
-        await sleep(1500);
+        map.flyTo([data.continent[0], data.continent[1]], 3);
+        await sleep(3000);
         for (let coordinates of data.player_status.flight_coords) {
             map.flyTo([coordinates[0], coordinates[1]], 5);
             playerLocation.setLatLng([coordinates[0], coordinates[1]]);
@@ -191,12 +188,11 @@ async function moveMarker(data) {
         playerLocation.setIcon(greenIcon);
         playerLocation.addTo(map);
         map.flyTo([data.location.latitude, data.location.longitude]);
-        await sleep(1500);
-        map.flyTo([data.continent[0], data.continent[1]], 2);
-        await sleep(1500);
+        playerLocation.setIcon(greenIcon);
+        playerLocation.openPopup();
+        map.flyTo([data.continent[0], data.continent[1]], 3);
     }
     playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
-    playerLocation.setIcon(greenIcon);
     playerLocation.openPopup();
 }
 

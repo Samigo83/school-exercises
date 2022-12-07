@@ -2,7 +2,6 @@ from config import connection
 from goal import Goal
 from player import Player
 from airport import Airport
-from transport import Transport
 from weather import Weather
 
 
@@ -65,6 +64,4 @@ class Game:
         self.location = Airport(location)
         self.continent = Airport(location).continent_coords(continent)
         self.weather = Weather(self.location.latitude, self.location.longitude)
-        print(continent, location, self.player_status.transport.name)
         self.airports = self.location.airport_by_continent_and_transport(continent, self.player_status.transport)
-        print(self.airports)
