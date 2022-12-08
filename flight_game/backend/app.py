@@ -20,6 +20,7 @@ def get_topten():
 def newgame(userinput, location, transport, continent):
     global g
     g = Game(userinput, location, transport, continent)
+    g.check_weather_goals()
     data = g
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
@@ -28,6 +29,7 @@ def newgame(userinput, location, transport, continent):
 def fly(location, prev_location, transport, continent):
     g.player_status.update(location, prev_location, transport)
     g.update(location, continent)
+    g.check_weather_goals()
     data = g
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data

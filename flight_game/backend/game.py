@@ -26,8 +26,6 @@ class Game:
         self.airports = Airport(location).airport_by_continent_and_transport(continent, self.player_status.transport)
         self.goals = get_weather_goals()
 
-        self.check_weather_goals()
-
     def get_weather_goals(self):
         goals = []
         sql = "SELECT * FROM goal"
