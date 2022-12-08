@@ -56,7 +56,10 @@ class Game:
             if not goal.reached and goal.goalid in self.weather.meets_goals:
                 self.player_status.goals.append(goal)
                 goal.reached = True
-        return
+
+        if len(self.player_status.goals) == 8:
+            self.player_status.check_for_topten()
+            return
 
     def update(self, location, continent):
         self.location = Airport(location)

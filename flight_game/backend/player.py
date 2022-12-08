@@ -39,7 +39,6 @@ class Player:
 
             self.co2_budget -= int(dist * 2 * self.transport.consumption * self.transport.speed / 1000)
             if self.co2_budget < 0:
-                self.co2_budget = 0
                 self.check_for_topten()
 
             flight_vector_x_multip = self.coordinates[0][0] - self.coordinates[1][0]
