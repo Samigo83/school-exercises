@@ -1,0 +1,304 @@
+{
+    "player_status": {
+        "name": "Sami",
+        "score": 2857,
+        "co2_budget": 9307,
+        "distance": 2102.5,
+        "travel_time": 3.5,
+        "coordinates": [
+            [
+                41.448299,
+                23.2171
+            ],
+            [
+                60.3172,
+                24.963301
+            ]
+        ],
+        "flight_coords": [],
+        "goals": [],
+        "transport": {
+            "name": "AIRPLANE",
+            "consumption": 0.275,
+            "speed": 600,
+            "airports_to_land": "'small_airport', 'closed', 'medium_airport', 'large_airport'"
+        },
+        "to_topten": false
+    },
+    "location": {
+        "ident": "LB45",
+        "distance": 0,
+        "name": "Petrich Air Base",
+        "latitude": 41.448299,
+        "longitude": 23.2171
+    },
+    "continent": [
+        51.672555,
+        -108.896484,
+        "NA"
+    ],
+    "weather": {
+        "main": "Clouds",
+        "description": "overcast clouds",
+        "icon": "https://openweathermap.org/img/wn/04d.png",
+        "temp": 10.41,
+        "humidity": 89,
+        "wind": {
+            "speed": 0.37,
+            "deg": 101
+        },
+        "meets_goals": []
+    },
+    "airports": [
+        {
+            "name": "Marina Heroica Naval Academy Airfield",
+            "ident": "MX-1615",
+            "latitude": 19.04705,
+            "longitude": -95.97628,
+            "distance": 10852,
+            "continent": "NA"
+        },
+        {
+            "name": "Monroe County Airport",
+            "ident": "K4G5",
+            "latitude": 39.77899932861328,
+            "longitude": -81.10279846191406,
+            "distance": 8212,
+            "continent": "NA"
+        },
+        {
+            "name": "Black Mesa Pumping Station Airport",
+            "ident": "US-5429",
+            "latitude": 36.43897,
+            "longitude": -110.39034,
+            "distance": 10175,
+            "continent": "NA"
+        },
+        {
+            "name": "Samb\u00fa Airport",
+            "ident": "PA-SAX",
+            "latitude": 8.026279,
+            "longitude": -78.209555,
+            "distance": 10365,
+            "continent": "NA"
+        },
+        {
+            "name": "Platte Municipal Airport",
+            "ident": "K1D3",
+            "latitude": 43.40330123901367,
+            "longitude": -98.82949829101562,
+            "distance": 8968,
+            "continent": "NA"
+        },
+        {
+            "name": "Lone Pine Flying Ranch Airport",
+            "ident": "WY64",
+            "latitude": 42.957401275634766,
+            "longitude": -110.98300170898438,
+            "distance": 9594,
+            "continent": "NA"
+        },
+        {
+            "name": "Spencer Nolf Airport",
+            "ident": "KNRQ",
+            "latitude": 30.62529945373535,
+            "longitude": -87.13999938964844,
+            "distance": 9306,
+            "continent": "NA"
+        },
+        {
+            "name": "Anderson Field / Rockwell Field",
+            "ident": "US-6010",
+            "latitude": 36.13583,
+            "longitude": -115.14532,
+            "distance": 10426,
+            "continent": "NA"
+        },
+        {
+            "name": "Dupouy Airport",
+            "ident": "3IN2",
+            "latitude": 40.4192008972168,
+            "longitude": -85.8561019897461,
+            "distance": 8466,
+            "continent": "NA"
+        },
+        {
+            "name": "Manti-Ephraim Airport",
+            "ident": "K41U",
+            "latitude": 39.32910156,
+            "longitude": -111.6149979,
+            "distance": 9962,
+            "continent": "NA"
+        },
+        {
+            "name": "Monroe Street Airport",
+            "ident": "US-4123",
+            "latitude": 33.74735,
+            "longitude": -113.58768,
+            "distance": 10583,
+            "continent": "NA"
+        },
+        {
+            "name": "Diamond Point Airstrip",
+            "ident": "2WA1",
+            "latitude": 48.09260177612305,
+            "longitude": -122.92900085449219,
+            "distance": 9542,
+            "continent": "NA"
+        },
+        {
+            "name": "Lakestone Farm Airport",
+            "ident": "NY11",
+            "latitude": 43.035301208496094,
+            "longitude": -77.30799865722656,
+            "distance": 7738,
+            "continent": "NA"
+        },
+        {
+            "name": "Elkin Municipal Airport",
+            "ident": "KZEF",
+            "latitude": 36.279998779296875,
+            "longitude": -80.78610229492188,
+            "distance": 8447,
+            "continent": "NA"
+        },
+        {
+            "name": "Dunham Private Airport",
+            "ident": "79MU",
+            "latitude": 39.330299377441406,
+            "longitude": -94.55660247802734,
+            "distance": 9074,
+            "continent": "NA"
+        },
+        {
+            "name": "Girdley Flying Service Airport",
+            "ident": "US-6409",
+            "latitude": 35.68414,
+            "longitude": -90.14733,
+            "distance": 9103,
+            "continent": "NA"
+        },
+        {
+            "name": "Stonington Airpark",
+            "ident": "CT80",
+            "latitude": 41.3473014831543,
+            "longitude": -71.88590240478516,
+            "distance": 7493,
+            "continent": "NA"
+        },
+        {
+            "name": "Raylene Airport",
+            "ident": "OH68",
+            "latitude": 39.30009841918945,
+            "longitude": -84.7499008178711,
+            "distance": 8482,
+            "continent": "NA"
+        },
+        {
+            "name": "Epps Ranch Airport",
+            "ident": "US-4664",
+            "latitude": 30.28808,
+            "longitude": -100.57668,
+            "distance": 10195,
+            "continent": "NA"
+        },
+        {
+            "name": "3 Rivers Recreation Area Airport",
+            "ident": "OG00",
+            "latitude": 44.556757,
+            "longitude": -121.405696,
+            "distance": 9848,
+            "continent": "NA"
+        }
+    ],
+    "goals": [
+        {
+            "goalid": 1,
+            "name": "HOT",
+            "description": "Temperature over +25C",
+            "icon": "https://openweathermap.org/img/wn/01d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 25.0,
+            "target_maxvalue": 9999.0,
+            "target_text": ""
+        },
+        {
+            "goalid": 2,
+            "name": "COLD",
+            "description": "Temperature under -20C",
+            "icon": "https://openweathermap.org/img/wn/13d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": -9999.0,
+            "target_maxvalue": -20.0,
+            "target_text": ""
+        },
+        {
+            "goalid": 3,
+            "name": "0DEG",
+            "description": "Temperature exactly 0C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": -0.5,
+            "target_maxvalue": 0.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 4,
+            "name": "10DEG",
+            "description": "Temperature exactly +10C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 9.5,
+            "target_maxvalue": 10.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 5,
+            "name": "20DEG",
+            "description": "Temperature exactly +20C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 19.5,
+            "target_maxvalue": 20.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 6,
+            "name": "CLEAR",
+            "description": "Clear skies",
+            "icon": "https://openweathermap.org/img/wn/01d.png",
+            "target": "WEATHER",
+            "reached": false,
+            "target_minvalue": 0.0,
+            "target_maxvalue": 0.0,
+            "target_text": "Clear"
+        },
+        {
+            "goalid": 7,
+            "name": "CLOUDS",
+            "description": "Cloudy",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "WEATHER",
+            "reached": false,
+            "target_minvalue": 0.0,
+            "target_maxvalue": 0.0,
+            "target_text": "Clouds"
+        },
+        {
+            "goalid": 8,
+            "name": "WINDY",
+            "description": "Wind blows more than 10 m/s",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "WIND",
+            "reached": false,
+            "target_minvalue": 10.0,
+            "target_maxvalue": 9999.0,
+            "target_text": ""
+        }
+    ]
+}

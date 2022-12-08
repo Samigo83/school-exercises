@@ -10,7 +10,7 @@
 
 
 /* utilities */
-.button {
+.a {
     display: block;
     padding: 0.5rem 1rem;
     text-decoration: none;
@@ -78,7 +78,6 @@ html, body {
 }
 
 .container {
-    position: relative;
     width: 100%;
 }
 

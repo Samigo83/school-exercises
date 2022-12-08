@@ -1,0 +1,705 @@
+{
+    "player_status": {
+        "name": "Sami",
+        "score": 2857,
+        "co2_budget": 9307,
+        "distance": 2102.5,
+        "travel_time": 3.5,
+        "coordinates": [
+            [
+                41.448299,
+                23.2171
+            ],
+            [
+                60.3172,
+                24.963301
+            ]
+        ],
+        "flight_coords": [
+            [
+                60.12851099,
+                24.945838990000002
+            ],
+            [
+                60.12660504040404,
+                24.94566260606061
+            ],
+            [
+                60.12466019387755,
+                24.94548262244898
+            ],
+            [
+                60.12267524742268,
+                24.945298927835054
+            ],
+            [
+                60.12064894791666,
+                24.94511140625
+            ],
+            [
+                60.11857998947369,
+                24.944919936842105
+            ],
+            [
+                60.116467010638296,
+                24.944724393617022
+            ],
+            [
+                60.11430859139785,
+                24.94452464516129
+            ],
+            [
+                60.11210325,
+                24.944320554347826
+            ],
+            [
+                60.10984943956044,
+                24.94411197802198
+            ],
+            [
+                60.10754554444444,
+                24.943898766666667
+            ],
+            [
+                60.105189876404495,
+                24.943680764044945
+            ],
+            [
+                60.10278067045454,
+                24.943457806818184
+            ],
+            [
+                60.10031608045977,
+                24.943229724137932
+            ],
+            [
+                60.0977941744186,
+                24.942996337209305
+            ],
+            [
+                60.095212929411765,
+                24.942757458823532
+            ],
+            [
+                60.092570226190475,
+                24.942512892857145
+            ],
+            [
+                60.08986384337349,
+                24.942262433734943
+            ],
+            [
+                60.087091451219514,
+                24.94200586585366
+            ],
+            [
+                60.08425060493827,
+                24.941742962962966
+            ],
+            [
+                60.0813387375,
+                24.9414734875
+            ],
+            [
+                60.07835315189873,
+                24.941197189873417
+            ],
+            [
+                60.075291012820514,
+                24.940913807692308
+            ],
+            [
+                60.07214933766234,
+                24.940623064935068
+            ],
+            [
+                60.068924986842106,
+                24.940324671052633
+            ],
+            [
+                60.065614653333334,
+                24.94001832
+            ],
+            [
+                60.06221485135135,
+                24.93970368918919
+            ],
+            [
+                60.05872190410959,
+                24.939380438356167
+            ],
+            [
+                60.055131930555554,
+                24.939048208333336
+            ],
+            [
+                60.05144083098592,
+                24.93870661971831
+            ],
+            [
+                60.047644271428574,
+                24.938355271428573
+            ],
+            [
+                60.043737666666665,
+                24.937993739130437
+            ],
+            [
+                60.03971616176471,
+                24.937621573529412
+            ],
+            [
+                60.0355746119403,
+                24.937238298507463
+            ],
+            [
+                60.03130756060606,
+                24.936843409090912
+            ],
+            [
+                60.02690921538461,
+                24.93643636923077
+            ],
+            [
+                60.022373421875,
+                24.936016609375002
+            ],
+            [
+                60.01769363492063,
+                24.935583523809527
+            ],
+            [
+                60.01286288709677,
+                24.935136467741938
+            ],
+            [
+                60.00787375409836,
+                24.934674754098364
+            ],
+            [
+                60.002718316666666,
+                24.93419765
+            ],
+            [
+                59.99738811864407,
+                24.93370437288136
+            ],
+            [
+                59.99187412068966,
+                24.933194086206896
+            ],
+            [
+                59.98616664912281,
+                24.932665894736843
+            ],
+            [
+                59.98025533928571,
+                24.932118839285714
+            ],
+            [
+                59.97412907272727,
+                24.93155189090909
+            ],
+            [
+                59.96777590740741,
+                24.930963944444446
+            ],
+            [
+                59.961183,
+                24.930353811320757
+            ],
+            [
+                59.95433651923077,
+                24.929720211538463
+            ],
+            [
+                59.94722154901961,
+                24.929061764705885
+            ],
+            [
+                59.93982198,
+                24.928376980000003
+            ],
+            [
+                59.9321203877551,
+                24.92766424489796
+            ],
+            [
+                59.924097895833334,
+                24.9269218125
+            ],
+            [
+                59.9157340212766,
+                24.926147787234044
+            ],
+            [
+                59.9070065,
+                24.925340108695654
+            ],
+            [
+                59.89789108888889,
+                24.924496533333336
+            ],
+            [
+                59.88836134090909,
+                24.923614613636364
+            ],
+            [
+                59.878388348837206,
+                24.922691674418605
+            ],
+            [
+                59.86794045238095,
+                24.921724785714286
+            ],
+            [
+                59.85698290243902,
+                24.920710731707317
+            ],
+            [
+                59.845477475,
+                24.919645975
+            ],
+            [
+                59.83338202564102,
+                24.918526615384618
+            ],
+            [
+                59.82064997368421,
+                24.917348342105264
+            ],
+            [
+                59.8072297027027,
+                24.91610637837838
+            ],
+            [
+                59.79306386111111,
+                24.914795416666667
+            ],
+            [
+                59.77808854285714,
+                24.913409542857146
+            ],
+            [
+                59.76223232352941,
+                24.911942147058824
+            ],
+            [
+                59.74541512121212,
+                24.91038581818182
+            ],
+            [
+                59.72754684375,
+                24.90873221875
+            ],
+            [
+                59.70852577419355,
+                24.906971935483874
+            ],
+            [
+                59.68823663333333,
+                24.905094300000002
+            ],
+            [
+                59.66654824137931,
+                24.903087172413795
+            ],
+            [
+                59.64331067857143,
+                24.90093667857143
+            ],
+            [
+                59.618351814814815,
+                24.89862688888889
+            ],
+            [
+                59.59147303846154,
+                24.896139423076924
+            ],
+            [
+                59.56244396,
+                24.89345296
+            ],
+            [
+                59.53099579166667,
+                24.890542625000002
+            ],
+            [
+                59.496813,
+                24.887379217391306
+            ],
+            [
+                59.45952268181818,
+                24.88392822727273
+            ],
+            [
+                59.418680904761906,
+                24.880148571428574
+            ],
+            [
+                59.37375495,
+                24.875990950000002
+            ],
+            [
+                59.324099947368424,
+                24.871395684210526
+            ],
+            [
+                59.26892772222222,
+                24.866289833333333
+            ],
+            [
+                59.20726464705882,
+                24.86058329411765
+            ],
+            [
+                59.1378936875,
+                24.854163437500002
+            ],
+            [
+                59.059273266666665,
+                24.846887600000002
+            ],
+            [
+                58.969421357142856,
+                24.83857235714286
+            ],
+            [
+                58.865746076923074,
+                24.828977846153848
+            ],
+            [
+                58.74479158333333,
+                24.817784250000003
+            ],
+            [
+                58.601845363636365,
+                24.804555454545454
+            ],
+            [
+                58.4303099,
+                24.788680900000003
+            ],
+            [
+                58.220655444444446,
+                24.76927866666667
+            ],
+            [
+                57.958587375,
+                24.745025875
+            ],
+            [
+                57.62164271428571,
+                24.713843714285716
+            ],
+            [
+                57.17238316666666,
+                24.6722675
+            ],
+            [
+                56.5434198,
+                24.6140608
+            ],
+            [
+                55.59997475,
+                24.52675075
+            ],
+            [
+                54.02756633333333,
+                24.381234
+            ],
+            [
+                50.8827495,
+                24.0902005
+            ],
+            [
+                41.448299,
+                23.2171
+            ]
+        ],
+        "goals": [],
+        "transport": {
+            "name": "AIRPLANE",
+            "consumption": 0.275,
+            "speed": 600,
+            "airports_to_land": "'small_airport', 'closed', 'medium_airport', 'large_airport'"
+        },
+        "to_topten": false
+    },
+    "location": {
+        "ident": "LB45",
+        "distance": 0,
+        "name": "Petrich Air Base",
+        "latitude": 41.448299,
+        "longitude": 23.2171
+    },
+    "continent": [
+        58.83649,
+        39.418945,
+        "EU"
+    ],
+    "weather": {
+        "main": "Clouds",
+        "description": "overcast clouds",
+        "icon": "https://openweathermap.org/img/wn/04d.png",
+        "temp": 10.41,
+        "humidity": 89,
+        "wind": {
+            "speed": 0.37,
+            "deg": 101
+        },
+        "meets_goals": []
+    },
+    "airports": [
+        {
+            "name": "Liverpool John Lennon Airport",
+            "ident": "EGGP",
+            "latitude": 53.333599,
+            "longitude": -2.84972,
+            "distance": 2349,
+            "continent": "EU"
+        },
+        {
+            "name": "Base ULM du Val de l'Ailette",
+            "ident": "FR-0353",
+            "latitude": 49.567443,
+            "longitude": 3.230307,
+            "distance": 1795,
+            "continent": "EU"
+        },
+        {
+            "name": "Base ULM Vol d'oiseau",
+            "ident": "FR-0477",
+            "latitude": 45.690818,
+            "longitude": -1.005464,
+            "distance": 2004,
+            "continent": "EU"
+        },
+        {
+            "name": "Beveren heliport",
+            "ident": "EBRB",
+            "latitude": 50.981667,
+            "longitude": 3.125833,
+            "distance": 1868,
+            "continent": "EU"
+        },
+        {
+            "name": "High Flats Farm Airstrip",
+            "ident": "GB-0483",
+            "latitude": 54.8697,
+            "longitude": -1.59656,
+            "distance": 2351,
+            "continent": "EU"
+        },
+        {
+            "name": "Vitry Le Fran\u00e7ois Vauclerc Airfield",
+            "ident": "LFSK",
+            "latitude": 48.7033,
+            "longitude": 4.68444,
+            "distance": 1660,
+            "continent": "EU"
+        },
+        {
+            "name": "Giannutri Airfield",
+            "ident": "IT-0575",
+            "latitude": 42.254584,
+            "longitude": 11.116147,
+            "distance": 1008,
+            "continent": "EU"
+        },
+        {
+            "name": "Milltownpass Airfield",
+            "ident": "IE-0050",
+            "latitude": 53.452082,
+            "longitude": -7.237543,
+            "distance": 2626,
+            "continent": "EU"
+        },
+        {
+            "name": "Kubbe Air Base",
+            "ident": "ESNI",
+            "latitude": 63.632499694824,
+            "longitude": 17.936000823975,
+            "distance": 2492,
+            "continent": "EU"
+        },
+        {
+            "name": "Bowden Farm Airstrip",
+            "ident": "GB-0839",
+            "latitude": 51.3619,
+            "longitude": -1.6873,
+            "distance": 2193,
+            "continent": "EU"
+        },
+        {
+            "name": "Ipswich Airport",
+            "ident": "GB-0512",
+            "latitude": 52.030797,
+            "longitude": 1.197901,
+            "distance": 2040,
+            "continent": "EU"
+        },
+        {
+            "name": "Kalixfors Airfield",
+            "ident": "ESUK",
+            "latitude": 67.764801,
+            "longitude": 20.2572,
+            "distance": 2934,
+            "continent": "EU"
+        },
+        {
+            "name": "Villoldo Airport",
+            "ident": "ES-0009",
+            "latitude": 42.2655,
+            "longitude": -4.6479,
+            "distance": 2305,
+            "continent": "EU"
+        },
+        {
+            "name": "Kalixfors Airfield",
+            "ident": "ESUK",
+            "latitude": 67.764801,
+            "longitude": 20.2572,
+            "distance": 2934,
+            "continent": "EU"
+        },
+        {
+            "name": "Kalymnos Airport",
+            "ident": "LGKY",
+            "latitude": 36.9632987976,
+            "longitude": 26.9405994415,
+            "distance": 592,
+            "continent": "EU"
+        },
+        {
+            "name": "Alto Vinalop\u00f3 Biar Benejama",
+            "ident": "ES-0218",
+            "latitude": 38.684431,
+            "longitude": -0.760295,
+            "distance": 2061,
+            "continent": "EU"
+        },
+        {
+            "name": "Letisko Ve?k\u00e1 Ida",
+            "ident": "CZ-0052",
+            "latitude": 48.5992279,
+            "longitude": 21.1598857,
+            "distance": 810,
+            "continent": "EU"
+        },
+        {
+            "name": "Base ULM de R\u00e9gat",
+            "ident": "FR-0491",
+            "latitude": 42.98382,
+            "longitude": 1.894069,
+            "distance": 1764,
+            "continent": "EU"
+        },
+        {
+            "name": "Leti\u0161t? Poli?n\u00e1 / Ju?inka",
+            "ident": "CZ-0119",
+            "latitude": 49.4763957,
+            "longitude": 17.9254001,
+            "distance": 982,
+            "continent": "EU"
+        },
+        {
+            "name": "Brent Tor Glider Field",
+            "ident": "GB-0015",
+            "latitude": 50.5925,
+            "longitude": -4.145278,
+            "distance": 2331,
+            "continent": "EU"
+        }
+    ],
+    "goals": [
+        {
+            "goalid": 1,
+            "name": "HOT",
+            "description": "Temperature over +25C",
+            "icon": "https://openweathermap.org/img/wn/01d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 25.0,
+            "target_maxvalue": 9999.0,
+            "target_text": ""
+        },
+        {
+            "goalid": 2,
+            "name": "COLD",
+            "description": "Temperature under -20C",
+            "icon": "https://openweathermap.org/img/wn/13d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": -9999.0,
+            "target_maxvalue": -20.0,
+            "target_text": ""
+        },
+        {
+            "goalid": 3,
+            "name": "0DEG",
+            "description": "Temperature exactly 0C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": -0.5,
+            "target_maxvalue": 0.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 4,
+            "name": "10DEG",
+            "description": "Temperature exactly +10C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 9.5,
+            "target_maxvalue": 10.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 5,
+            "name": "20DEG",
+            "description": "Temperature exactly +20C",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "TEMP",
+            "reached": false,
+            "target_minvalue": 19.5,
+            "target_maxvalue": 20.5,
+            "target_text": ""
+        },
+        {
+            "goalid": 6,
+            "name": "CLEAR",
+            "description": "Clear skies",
+            "icon": "https://openweathermap.org/img/wn/01d.png",
+            "target": "WEATHER",
+            "reached": false,
+            "target_minvalue": 0.0,
+            "target_maxvalue": 0.0,
+            "target_text": "Clear"
+        },
+        {
+            "goalid": 7,
+            "name": "CLOUDS",
+            "description": "Cloudy",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "WEATHER",
+            "reached": false,
+            "target_minvalue": 0.0,
+            "target_maxvalue": 0.0,
+            "target_text": "Clouds"
+        },
+        {
+            "goalid": 8,
+            "name": "WINDY",
+            "description": "Wind blows more than 10 m/s",
+            "icon": "https://openweathermap.org/img/wn/04d.png",
+            "target": "WIND",
+            "reached": false,
+            "target_minvalue": 10.0,
+            "target_maxvalue": 9999.0,
+            "target_text": ""
+        }
+    ]
+}

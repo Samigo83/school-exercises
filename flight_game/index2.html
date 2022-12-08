@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <link href="css/style2.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" defer></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js" defer></script>
+    <script src="js/main2.js" defer></script>
+    <title>Flying Bolivar</title>
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">
+            <ion-icon name="logo-octocat"></ion-icon>&nbsp;Flying&nbsp;Bolivar&nbsp;<ion-icon
+                name="logo-octocat"></ion-icon>
+        </h1>
+    </header>
+    <div class="flex-wrap space-evenly small-margin">
+        <div class="player-status-item">
+            <h2 id="player-name">Player Name</h2>
+        </div>
+        <div class="player-status-item">
+            <p>Score: <span id="score">999</span></p>
+        </div>
+        <div class="player-status-item">
+            <p>Co2 Budget: <span id="budget">9999</span>kg</p>
+        </div>
+        <div class="player-status-item">
+            <p>Distance: <span id="distance">9999</span>km</p>
+        </div>
+        <div class="player-status-item">
+            <p>Time: <span id="time">9999</span>h</p>
+        </div>
+    </div>
+    <div class="flex-wrap">
+        <div class="weather">
+            <h3 id="airport-name">Airport Name</h3>
+            <div class="flex-wrap space-evenly">
+                <div class="weather-item">
+                    <img id="weather-icon" src="https://openweathermap.org/img/wn/10d@2x.png" alt="current weather">
+                    <p id="airport-conditions">Cloudy</p>
+                </div>
+                <div class="weather-item">
+                    <h2>Temp</h2>
+                    <p id="airport-temp">10°C</p>
+                </div>
+                <div class="weather-item">
+                    <h2>Wind</h2>
+                    <p id="wind">25m/s</p>
+                </div>
+            </div>
+        </div>
+        <div class="goals">
+            <h3> Goals</h3>
+            <div id="goals" class="flex-wrap space-evenly button-status">
+            </div>
+        </div>
+    </div>
+    <div class="search-box">
+        <div style="overflow: hidden">
+        <a id="search-button" class="button button-grey" href="#">Search for airports</a>
+        </div>
+    </div>
+    <div id="map"></div>
+    <div class="last-block flex-wrap">
+        <div class="transport">
+            <h3> Choose a Transport</h3>
+            <div class="flex-wrap space-evenly button-status">
+                <button class="button button-grey button-transport active" id="airplane" value="airplane">Airplane
+                </button>
+                <button class="button button-grey button-transport" id="fighter" value="fighter">Fighter</button>
+                <button class="button button-grey button-transport" id="helicopter" value="helicopter">Helicopter
+                </button>
+                <button class="button button-grey button-transport" id="glider" value="glider">Glider</button>
+                <button class="button button-grey button-transport" id="balloon" value="balloon">Balloon</button>
+            </div>
+        </div>
+        <div class="world-part">
+            <h3> Choose a part of the world</h3>
+            <div class="flex-wrap space-evenly button-status">
+                <button class="button button-grey button-world" value="AF">Africa</button>
+                <button class="button button-grey button-world" value="AN">Antarctica</button>
+                <button class="button button-grey button-world" value="AS">Asia</button>
+                <button class="button button-grey button-world active" value="EU">Europe</button>
+                <button class="button button-grey button-world" value="NA">North-America</button>
+                <button class="button button-grey button-world" value="OC">Oceania</button>
+                <button class="button button-grey button-world" value="SA">South-America</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer flex-wrap space-between">
+    <button class="button button-grey" id="topten-button">Topten</button>
+    <button class="button button-grey" id="help-button">Help</button>
+</footer>
+<div class="goal hide">
+    <h2>You got this maaaan!</h2>
+    <p><span id="goal-txt">Goal reached!!</span></p>
+</div>
+</div>
+<div id="player-modal">
+    <form id="player-form">
+        <input id="player-input" type="text" placeholder="Player name" required>
+        <input type="submit" value="Start game">
+    </form>
+</div>
+<div id="topten-modal" class="flex-column center hide">
+    <h2>Hall of fame</h2>
+    <table id="topten-table">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Score</td>
+        </tr>
+    </table>
+    <button class="button button-grey" id="topten-close">Close</button>
+</div>
+</body>
+</html>

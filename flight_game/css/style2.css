@@ -1,0 +1,372 @@
+/* variable */
+:root {
+    --black: rgb(23, 23, 23);
+    --white: rgb(248,246,246);
+    --grey: rgb(128, 128, 128);
+    --dark-grey: rgb(57, 57, 57);
+}
+
+/* utilities */
+
+/*---------buttons-----------*/
+.button {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: all 300ms;
+    margin: 0.5rem;
+}
+
+.button-none {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    transition: all 300ms;
+}
+
+.button-status {
+    text-decoration: none;
+    text-align: center;
+    transition: all 300ms;
+    font-size: small;
+}
+
+.button-white {
+    background-color: var(--white);
+    color: var(--black)
+}
+
+.button-grey {
+    background-color: var(--grey);
+    color: var(--black)
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.active {
+    background-color: blue;
+    color: var(--white);
+    border: 1px solid var(--white);
+    border-radius: 4px;
+}
+
+/* utilities */
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.center {
+    justify-content: center;
+}
+
+.hide {
+    display: none;
+}
+
+.float {
+    float: left;
+}
+
+/* app specific rules */
+
+html {
+    min-height:100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, sans-serif;
+    background-color: var(--white);
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    min-height:100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, sans-serif;
+    background-color: var(--white);
+    scroll-behavior: smooth;
+}
+
+.player-status-item {
+    position: relative;
+    margin-bottom: 0.7rem;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.player-status-item h2 {
+    margin: 0.7rem;
+    padding: 0;
+}
+
+.player-status-item p {
+    margin: 0.7rem;
+    padding: 0;
+}
+
+.weather {
+    height: auto;
+    position: relative;
+    width: 35%;
+    border: solid black;
+    border-width: 2px 0 2px 0;
+    box-sizing: border-box;
+}
+
+.weather-item {
+    position: relative;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.weather-item img {
+    width: 50%;
+    height: auto;
+}
+
+.weather-item p {
+    padding: 0.5rem;
+}
+
+.goals {
+    height: auto;
+    position: relative;
+    width: 65%;
+    border: solid black;
+    border-width: 2px 0 2px 2px;
+    box-sizing: border-box;
+}
+
+.goal-item {
+    width: calc(100% / 8 - 8 * 0.2rem);
+    margin: 0.5rem 0 0.5rem 0.2rem;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.goals img {
+    width: 50%;
+    height: auto;
+}
+
+.goals p {
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-box {
+    background-color: var(--dark-grey);
+}
+
+.transport {
+    height: auto;
+    position: relative;
+    width: 35%;
+    border: solid black;
+    border-width: 2px 0 2px 0;
+    box-sizing: border-box;
+}
+
+.world-part {
+    height: auto;
+    position: relative;
+    width: 65%;
+    border: solid black;
+    border-width: 2px 0 2px 2px;
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.page-header, .page-footer {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.page-header {
+    height: auto;
+    text-align: center;
+    padding: 0.7rem;
+}
+
+.page-footer {
+    height: auto;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.page-title {
+    height: auto;
+    margin: 0;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-size: medium;
+}
+
+h3 {
+    margin: 0.5rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+p {
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+ion-icon {
+    vertical-align: middle;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.small-margin {
+    margin: 0.5rem 0;
+}
+
+
+
+#player-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+}
+
+#player-form {
+    display: flex;
+    width: 50%;
+    margin: 4rem auto;
+    flex-direction: column;
+}
+
+#player-form input {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#topten-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 217, 111, 0.95);
+    position: absolute;
+    text-align: center;
+    top: 0;
+    z-index: 9999;
+}
+
+#topten-modal h2 {
+    position: relative;
+}
+
+#topten-table {
+    margin: 2rem auto;
+    position: relative;
+    border-spacing: 0;
+    border-top: 2px var(--black) solid;
+    border-left: 2px var(--black) solid;
+    border-right: 2px var(--black) solid;
+    border-radius: 4px;
+}
+
+#topten-table td {
+    border-right: 2px var(--black) solid;
+    border-bottom: 2px var(--black) solid;
+    padding: 1rem;
+}
+
+#topten-table td:last-child {
+    border-right: none;
+}
+
+#topten-close {
+    margin: 2rem auto;
+    position: relative;
+}
+
+/*-------map----------*/
+#map {
+    display: flex;
+    overflow: hidden;
+    padding: 0rem 1rem;
+    height: 55vh;
+
+}
+
+/* Leaflet icons*/
+.blue-icon {
+    background-color: #2474ff;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5)
+}
+
+.green-icon {
+    background-color: #27ba35;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5)
+}
+
+/*--------GOAL----------*/
+
+.goal {
+    background-image: url('../img/splatter.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 9rem 7rem;
+    text-align: center;
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
+    filter: drop-shadow(0 0 30px #333);
+    transform: rotate(340deg);
+    line-height: 1.5rem;
+    z-index: 999;
+}
+
+.goal h2, .goal p {
+    margin: 0.5rem;
+}
+
+.hide {
+    display: none;
+}
+
+.done {
+    background-color: var(--grey);
+}
