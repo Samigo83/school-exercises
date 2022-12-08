@@ -64,6 +64,11 @@
     flex-wrap: wrap;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .space-evenly {
     justify-content: space-evenly;
 }
@@ -316,6 +321,26 @@ ul {
 }
 
 #topten-close {
+    margin: 2rem auto;
+    position: relative;
+}
+
+#gameover-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(18, 80, 23, 0.95);
+    position: absolute;
+    text-align: center;
+    top: 0;
+    z-index: 9999;
+}
+
+#gameover-modal h2 {
+    font-size: 3rem;
+    position: relative;
+}
+
+#gameover-newgame {
     margin: 2rem auto;
     position: relative;
 }

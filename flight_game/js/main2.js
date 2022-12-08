@@ -26,9 +26,9 @@ const blueIcon = L.divIcon({className: 'blue-icon'});
 
 const bolivarIcon = L.icon({
     iconUrl: 'img/bolivar_airplane.png',
-    iconSize:     [120, 90], // size of the icon
-    iconAnchor:   [60, 45], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-25, -50] // point from which the popup should open relative to the iconAnchor
+    iconSize: [120, 90], // size of the icon
+    iconAnchor: [60, 45], // point of the icon which will correspond to marker's location
+    popupAnchor: [-25, -50] // point from which the popup should open relative to the iconAnchor
 });
 
 // form for player name
@@ -99,30 +99,27 @@ function updateGoals(goals) {
 }
 
 // function to check if game is over
-function checkGameOver(data) {
+async function checkGameOver(data) {
     if (data.player_status.co2_budget <= 0) {
-        alert(`Game Over. ${globalGoals.length} goals reached.`);
-        if (data.player_status.to_topten) {
-            build_top_ten();
-            const toptenModal = document.querySelector('#topten-modal');
-            const p = document.createElement("p");
-            p.innerHTML = 'NICE FLYING THERE!! U MADE IT TO THE TOP10!!';
-            toptenModal.appendChild(p);
-            toptenModal.classList.remove('hide');
-        }
-        return false;
+        document.querySelector('#gameover-modal').classList.remove('hide');
     } else if (data.player_status.goals.length >= 8) {
-        alert('You won the game');
         if (data.player_status.to_topten) {
-            build_top_ten();
+            await build_top_ten();
             const toptenModal = document.querySelector('#topten-modal');
+            const congrats = document.querySelector('#congrats');
             const p = document.createElement("p");
             p.innerHTML = 'NICE FLYING THERE!! U MADE IT TO THE TOP10!!';
-            toptenModal.appendChild(p);
+            congrats.appendChild(p);
+            toptenModal.classList.remove('hide');
+        } else {
+            await build_top_ten();
+            const toptenModal = document.querySelector('#topten-modal');
+            const congrats = document.querySelector('#congrats');
+            const p = document.createElement("p");
+            p.innerHTML = 'You almost had it to the topten. Fly again.';
+            congrats.appendChild(p);
             toptenModal.classList.remove('hide');
         }
-    } else {
-        return true;
     }
 }
 
@@ -137,6 +134,8 @@ function clearButtons(target, style1, style2) {
 // function to build topten10 table
 async function build_top_ten() {
     const data = await getData(`${apiurl}topten`);
+    const congrats = document.querySelector('#congrats');
+    congrats.innerHTML = '';
     let i = 1;
     const table = document.querySelector('#topten-table');
     table.innerHTML = '';
@@ -182,7 +181,7 @@ function sleep(ms) {
 async function moveMarker(data) {
     if (data.player_status.flight_coords.length > 1) {
         map.flyTo([data.continent[0], data.continent[1]], 3);
-        await sleep(3000);
+        await sleep(2000);
         for (let coordinates of data.player_status.flight_coords) {
             map.flyTo([coordinates[0], coordinates[1]], 5);
             playerLocation.setLatLng([coordinates[0], coordinates[1]]);
@@ -199,7 +198,6 @@ async function moveMarker(data) {
     }
     playerLocation.bindPopup(`You are here: <b>${data.location.name}</b>`);
     playerLocation.openPopup();
-
 }
 
 function tranportButtons() {
@@ -229,6 +227,7 @@ function continentButtons() {
 async function gameSetup(url) {
     try {
         document.querySelector('.goal').classList.add('hide');
+        document.querySelector('#gameover-modal').classList.add('hide');
         airportMarkers.clearLayers();
         const gameData = await getData(url);
         console.log(gameData);
@@ -237,7 +236,7 @@ async function gameSetup(url) {
 
         continentButtons();
         tranportButtons();
-        if (!checkGameOver(gameData)) return
+        checkGameOver(gameData);
         await moveMarker(gameData);
         updateStatus(gameData.player_status);
         showWeather(gameData);
@@ -288,6 +287,15 @@ document.querySelector('#search-button').addEventListener('click', function () {
 document.querySelector('#topten-button').addEventListener('click', build_top_ten())
 document.querySelector('#topten-close').addEventListener('click', function () {
     document.querySelector('#topten-modal').classList.add('hide');
+});
+
+// event listener for gameover screen
+document.querySelector('#gameover-newgame').addEventListener('click', function () {
+    document.querySelector('#gameover-modal').classList.add('hide');
+    playerLoc = 'EFHK'
+    continent = 'EU'
+    transport = 'airplane'
+    location.reload();
 });
 
 
