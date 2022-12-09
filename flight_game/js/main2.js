@@ -20,6 +20,7 @@ const playerLocation = L.marker([0, 0]);
 let playerLoc = 'EFHK'
 let continent = 'EU'
 let transport = 'airplane'
+let country = 'FI'
 
 // icons
 const blueIcon = L.divIcon({className: 'blue-icon'});
@@ -36,7 +37,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-modal').classList.add('hide');
-    gameSetup(`${apiurl}game?player=${playerName}&loc=${playerLoc}&continent=${continent}&transport=${transport}`);
+    gameSetup(`${apiurl}game?player=${playerName}&loc=${playerLoc}&continent=${continent}&transport=${transport}&country=${country}`);
 })
 
 // function to fetch data from API
@@ -91,7 +92,7 @@ function updateGoals(goals) {
         div.appendChild(img)
         div.appendChild(p)
         if (goal.reached) {
-            div.classList.add('done');
+            div.classList.add('active');
             globalGoals.includes(goal.goalid) || globalGoals.push(goal.goalid);
         }
         document.querySelector('#goals').append(div)
@@ -120,14 +121,6 @@ async function checkGameOver(data) {
             congrats.appendChild(p);
             toptenModal.classList.remove('hide');
         }
-    }
-}
-
-// function to set all buttons to default style
-function clearButtons(target, style1, style2) {
-    const elements = document.getElementsByClassName(`${target}`)
-    for (let e of elements) {
-        e.classList.replace(style1, style2);
     }
 }
 
@@ -261,7 +254,8 @@ async function gameSetup(url) {
                 popupContent.append(p);
                 marker.bindPopup(popupContent);
                 goButton.addEventListener('click', function () {
-                    gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${playerLoc}&continent=${continent}&transport=${transport}`);
+                    country=gameData.location.country;
+                    gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${playerLoc}&continent=${continent}&transport=${transport}&country=${country}`);
                 });
             }
         }

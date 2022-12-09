@@ -11,7 +11,6 @@ connection = mysql.connector.connect(
     user=os.environ.get('DB_USER'),
     password=os.environ.get('DB_PASS'),
     autocommit=True,
-    buffered=True
     )
 
 ow_apikey=os.environ.get('OW_APIKEY')

@@ -32,7 +32,7 @@ class Player:
         if len(self.coordinates) >= 2:
 
             self.flight_coords = []
-            dist = geodesic(self.coordinates[0], self.coordinates[1]).km
+            dist = (geodesic(self.coordinates[0], self.coordinates[1])).km
             self.distance += round(float(dist), 1)
             self.travel_time += round(float(dist / self.transport.speed), 1)
             self.score += int(self.co2_budget * (1 / self.travel_time ))

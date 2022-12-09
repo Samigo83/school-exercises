@@ -25,7 +25,6 @@ def newgame(userinput, location, transport, continent):
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
 
-
 def fly(location, prev_location, transport, continent):
     g.player_status.update(location, prev_location, transport)
     g.update(location, continent)
@@ -37,7 +36,7 @@ def fly(location, prev_location, transport, continent):
 
 def refresh(location, continent, transport):
     g.player_status.refresh(transport)
-    g.update(location, continent)
+    g.refresh(location, continent)
     data = g
     json_data = json.dumps(data, default=lambda o: o.__dict__, indent=4)
     return json_data
@@ -51,6 +50,7 @@ def game():
     loc = args.get("loc")
     transport = args.get('transport')
     continent = args.get('continent')
+    country = args.get('country')
     data = newgame(player, loc, transport.upper(), continent.upper())
     return data
 
@@ -63,6 +63,7 @@ def flyto():
     prevloc = args.get("prevloc")
     transport = args.get('transport')
     continent = args.get('continent')
+    country = args.get('country')
     data = fly(loc, prevloc, transport.upper(), continent.upper())
     return data
 
