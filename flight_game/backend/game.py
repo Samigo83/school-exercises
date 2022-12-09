@@ -22,7 +22,7 @@ class Game:
         self.location = Airport(location)
         self.continent = Airport(location).continent_coords(continent)
         self.weather = Weather(self.location.latitude, self.location.longitude)
-        self.airports = Airport(location).airport_by_continent_and_transport_country(continent, self.player_status.transport)
+        self.airports = Airport(location).airport_by_currentlocation(continent, self.player_status.transport)
         self.goals = get_weather_goals()
 
     def get_weather_goals(self):
@@ -49,7 +49,6 @@ class Game:
                     self.weather.meets_goals.append(goal.goalid)
             elif goal.target == "WIND":
                 # wind rule
-                print(self.weather.wind)
                 if self.weather.wind["speed"] >= goal.target_minvalue and self.weather.wind["speed"] <= goal.target_maxvalue:
                     self.weather.meets_goals.append(goal.goalid)
 
@@ -66,7 +65,7 @@ class Game:
         self.location = Airport(location)
         self.continent = Airport(location).continent_coords(continent)
         self.weather = Weather(self.location.latitude, self.location.longitude)
-        self.airports = self.location.airport_by_continent_and_transport_country(continent, self.player_status.transport)
+        self.airports = self.location.airport_by_currentlocation(continent, self.player_status.transport)
 
     def refresh(self, location, continent):
         self.location = Airport(location)

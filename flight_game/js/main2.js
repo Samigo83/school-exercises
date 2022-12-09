@@ -229,10 +229,10 @@ async function gameSetup(url) {
 
         continentButtons();
         tranportButtons();
-        checkGameOver(gameData);
         await moveMarker(gameData);
         updateStatus(gameData.player_status);
         showWeather(gameData);
+        checkGameOver(gameData);
 
         if (gameData.airports.length < 1) {
             alert("No airports found. Remember: Landing spots for balloon are only found in North-America and some in Europe.");
@@ -254,7 +254,6 @@ async function gameSetup(url) {
                 popupContent.append(p);
                 marker.bindPopup(popupContent);
                 goButton.addEventListener('click', function () {
-                    country=gameData.location.country;
                     gameSetup(`${apiurl}flyto?loc=${airport.ident}&prevloc=${playerLoc}&continent=${continent}&transport=${transport}&country=${country}`);
                 });
             }
@@ -286,9 +285,6 @@ document.querySelector('#topten-close').addEventListener('click', function () {
 // event listener for gameover screen
 document.querySelector('#gameover-newgame').addEventListener('click', function () {
     document.querySelector('#gameover-modal').classList.add('hide');
-    playerLoc = 'EFHK'
-    continent = 'EU'
-    transport = 'airplane'
     location.reload();
 });
 

@@ -15,16 +15,15 @@ class Airport:
               f"AND airport.ident = '{ident}'"
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
-        result = query_cursor.fetchall()
-        for i in result:
-            self.name = i[0]
-            self.latitude = i[2]
-            self.longitude = i[3]
-            self.country = i[4]
+        result = query_cursor.fetchone()
+        self.name = result[0]
+        self.latitude = result[2]
+        self.longitude = result[3]
+        self.country = result[4]
 
-    def airport_by_continent_and_transport_country(self, continent, transport):
+    def airport_by_currentlocation(self, continent, transport):
         sql = f"SELECT airport.name, airport.ident, airport.type, airport.latitude_deg, airport.longitude_deg, " \
-              f"continent.code, airport.iso_country " \
+              f"continent.code " \
               f"FROM airport, country, continent " \
               f"WHERE country.iso_country = airport.iso_country AND country.continent = continent.code " \
               f"and airport.continent = '{continent}' and airport.type in ({transport.airports_to_land}) " \
@@ -32,7 +31,6 @@ class Airport:
         query_cursor = connection.cursor()
         query_cursor.execute(sql)
         result = query_cursor.fetchall()
-        print(result)
         airport_list = []
         if len(result) > 0:
             for airport in result:
@@ -40,7 +38,6 @@ class Airport:
                     distance = self.distance_to(airport[3], airport[4])
                     data = {'name': airport[0], 'ident': airport[1], 'latitude': airport[3],
                             'longitude': airport[4], 'distance': distance, 'continent': airport[5],
-                            'iso_country': airport[6]
                             }
                     airport_list.append(data)
         if len(airport_list) > 40:

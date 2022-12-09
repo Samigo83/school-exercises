@@ -50,7 +50,6 @@ def game():
     loc = args.get("loc")
     transport = args.get('transport')
     continent = args.get('continent')
-    country = args.get('country')
     data = newgame(player, loc, transport.upper(), continent.upper())
     return data
 
@@ -63,7 +62,6 @@ def flyto():
     prevloc = args.get("prevloc")
     transport = args.get('transport')
     continent = args.get('continent')
-    country = args.get('country')
     data = fly(loc, prevloc, transport.upper(), continent.upper())
     return data
 
